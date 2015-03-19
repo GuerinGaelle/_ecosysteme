@@ -18,7 +18,7 @@ public class WindAgent extends Agent
 		super(__x, __y, __w);
 		try
 		{
-			img = ImageIO.read(new File("sprites/WindAgent.png"));
+			img = ImageIO.read(new File("WindAgent.png"));
 		}
 		catch (Exception e)
 		{
@@ -31,13 +31,14 @@ public class WindAgent extends Agent
 	{
 		if (_alive)
 		{
-			PV = PV - 1;
-			if (reproduction == 20)
+			//PV = PV - 1;
+			age++;
+			/*if (reproduction == 20)
 				reproduction = 0;
 			else if (reproduction >= 1)
-				reproduction++;
+				reproduction++;*/
 			attaque_alentour(place);
-			if (PV <= 0)
+			if /*(*/(PV <= 0)//||(age==100))
 				_alive = false;
 			repere_environement();
 			deplacement();
@@ -46,7 +47,7 @@ public class WindAgent extends Agent
 		{
 			try
 			{
-				img = ImageIO.read(new File("sprites/MortAgent.png"));
+				img = ImageIO.read(new File("MortAgent.png"));
 			}
 			catch (Exception e)
 			{
@@ -80,9 +81,9 @@ public class WindAgent extends Agent
 			}
 			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (a._alive = true) )
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (place != i) && (a._alive = true) && (reproduction == 0))
+			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (place != i) && (a._alive = true) && (age<40)&&(age>=10)&&(PV>20))
 			{
-				reproduction = 1;
+				//reproduction = 1;
 				boolean test = false;
 				while ((j < _world.agents.size()) && (test == false))
 				{
@@ -110,44 +111,44 @@ public class WindAgent extends Agent
 		switch ( _orient )
 		{
 		case 0: // nord
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
 				break;
 
 			if (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				break;
+				break;*/
 
 			_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
 			break;
 
 
 		case 1: // est
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
 				break;
 
 			if (_world.getCellState(( _x + 1 + _world.getWidth() ) % _world.getWidth(), _y)[1] == true)
-				break;
+				break;*/
 
 			_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
 			break;
 
 
 		case 2: // sud
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
 				break;
 
 			if (_world.getCellState(_x, (_y + 1 + _world.getHeight()) % _world.getHeight())[1] == true)
-				break;
+				break;*/
 
 			_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
 			break;
 
 
 		case 3: // ouest
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
 				break;
 
 			if (_world.getCellState(( _x - 1 + _world.getWidth() ) % _world.getWidth(), _y)[1] == true)
-				break;
+				break;*/
 
 			_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
 			break;

@@ -30,7 +30,7 @@ public class SpriteDemo extends JPanel
 	{
 		try
 		{
-			grassSprite = ImageIO.read(new File("sprites/grass.png"));
+			grassSprite = ImageIO.read(new File("grass.png"));
 		}
 		catch (Exception e)
 		{
@@ -38,7 +38,7 @@ public class SpriteDemo extends JPanel
 		}
 		try
 		{
-			treeSprite = ImageIO.read(new File("sprites/tree.png"));
+			treeSprite = ImageIO.read(new File("tree.png"));
 		}
 		catch (Exception e)
 		{

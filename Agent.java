@@ -15,22 +15,15 @@ public abstract class Agent
 
 	World _world;
 	boolean _alive;
-	static int redId   = 0;
-	static int greenId = 1;
-	static int blueId  = 2;
-
 	int PV;
-	int reproduction;
 	int mode;
 	Image img;
 	int     _x;
 	int     _y;
 	int     _orient;
-	//int   _etat;
-	int reproduce_it;
-	int     _redValue;
-	int     _greenValue;
-	int     _blueValue;
+	//int_etat;int reproduce_it;int _redValue;int_greenValue;int_blueValue;int reproduction;static int blueId=2;
+	//_redValue = 255;//_greenValue = 0;//_blueValue = 0;//reproduction=1; static int greenId=1;static int redId=0;
+	int		age;
 
 	public Agent( int __x, int __y, World __w)
 	{
@@ -39,11 +32,8 @@ public abstract class Agent
 		_y = __y;
 		_world = __w;
 
-		_redValue = 255;
-		_greenValue = 0;
-		_blueValue = 0;
-
-		reproduction=1;
+		
+		age=0;
 		PV = 100;
 		mode = 0;
 		_orient = 0;
