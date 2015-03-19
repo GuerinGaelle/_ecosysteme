@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -10,8 +9,7 @@ import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public abstract class Agent
-{
+public abstract class Agent{
 
 	World _world;
 	boolean _alive;
@@ -41,3 +39,4 @@ public abstract class Agent
 
 	abstract public void step(int place );
 }
+

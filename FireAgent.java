@@ -38,7 +38,7 @@ public class FireAgent extends Agent
 			//PV = PV - 1;
 			age++;
 			attaque_alentour(place);
-			if (PV <= 0)
+			if ((PV <= 0)|| (age==100))
 				_alive = false;
 			repere_environement();
 			deplacement();
@@ -81,7 +81,7 @@ public class FireAgent extends Agent
 				if ((float)Math.random() <= 0.75)PV = PV - 30;
 			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (a._alive = true))
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (place != i) && (a._alive = true) && (a._alive = true) && (age<40)&&(age>=10)&&(PV>20))
+			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (place != i) && (a._alive = true) && (age<40)&&(age>=10)&&(PV>20))
 			{
 				//reproduction = 1;
 				boolean test = false;

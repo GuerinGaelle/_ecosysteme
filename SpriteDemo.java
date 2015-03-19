@@ -11,10 +11,12 @@ import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class SpriteDemo extends JPanel
+import java.io.Serializable;
+
+public class SpriteDemo extends JPanel implements Serializable
 {
 
-	private static final long serialVerionUID = 149;
+	private static final long serialVersionUID = 2462347245922742374L;
 
 	private JFrame frame;
 	private World _world;
@@ -25,6 +27,7 @@ public class SpriteDemo extends JPanel
 
 	Image grassSprite;
 	Image treeSprite;
+	Image waterSprite;
 
 	public SpriteDemo(int x, int y, World w)
 	{
@@ -35,6 +38,7 @@ public class SpriteDemo extends JPanel
 		catch (Exception e)
 		{
 			System.out.println("Grass : sprite not found");
+			System.exit(-1);
 		}
 		try
 		{
@@ -45,11 +49,20 @@ public class SpriteDemo extends JPanel
 			System.out.println("Tree : sprite not found");
 			System.exit(-1);
 		}
+		try
+		{
+			waterSprite = ImageIO.read(new File("water.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("Water : sprite not found");
+			System.exit(-1);
+		}
 
-		frame = new JFrame("World of Sprite");
+		frame = new JFrame("Ecosysteme");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(this);
-		frame.setSize(32 * x, 32 * y);
+		frame.setSize((spriteLength + 2) * x, (spriteLength + 4) * y);
 		frame.setVisible(true);
 
 		_world = w;
@@ -82,6 +95,8 @@ public class SpriteDemo extends JPanel
 		{
 			for (int j = 0; j != tab[0].length; j += 1)
 			{
+				if (tab[i][j][4] == true)
+					g2.drawImage(waterSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 				if (tab[i][j][0] == true)
 					g2.drawImage(grassSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 				if (tab[i][j][1] == true)
