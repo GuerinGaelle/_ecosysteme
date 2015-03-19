@@ -35,6 +35,10 @@ public class FireAgent extends Agent
 				reproduction = 0;
 			else if (reproduction >= 1)
 				reproduction++;*/
+			age_it = (age_it + 1) % 2;
+			if (age_it % 2 == 0)
+				age += 1;
+			
 			attaque_alentour(place);
 			if (PV <= 0 || age == 100)
 				_alive = false;

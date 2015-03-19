@@ -31,13 +31,17 @@ public class WindAgent extends Agent
 	{
 		if (_alive)
 		{
-			PV = PV - 1;
-			if (reproduction == 20)
+			/*if (reproduction == 20)
 				reproduction = 0;
 			else if (reproduction >= 1)
-				reproduction++;
+				reproduction++;*/
+
+			age_it = (age_it + 1) % 2;
+			if (age_it % 2 == 0)
+				age += 1;
+
 			attaque_alentour(place);
-			if (PV <= 0)
+			if (PV <= 0 || age == 100)
 				_alive = false;
 			repere_environement();
 			deplacement();
