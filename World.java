@@ -138,7 +138,7 @@ public class World
 	public void step ( )
 	{
 		stepWorld();
-		//stepAgents();
+		stepAgents();
 
 		if ( buffering && cloneBuffer )
 		{
@@ -182,30 +182,31 @@ public class World
 	{
 		int x;
 		int y;
-
+		int center = _dx / 2;
+		int rayon = _dx / 3;
 		switch (agent)
 		{
 			case 0:
-				x = (int)(Math.random () * _dx);
-				y = (int)(Math.random () * _dy);
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
 				agents.add(new WaterAgent(x,y,this));
 				break;
 
 			case 1:
-				x = (int)(Math.random () * _dx);
-				y = (int)(Math.random () * _dy);
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
 				agents.add(new EarthAgent(x,y,this));
 				break;
 
 			case 2:
-				x = (int)(Math.random () * _dx);
-				y = (int)(Math.random () * _dy);
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
 				agents.add(new FireAgent(x,y,this));
 				break;
 
 			case 3:
-				x = (int)(Math.random () * _dx);
-				y = (int)(Math.random () * _dy);
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
 				agents.add(new WindAgent(x,y,this));
 				break;
 
@@ -261,8 +262,8 @@ public class World
 
 			s += a._x + "x" + a._y + ", ";
 			s += (a._alive ? "Alive" : "Dead");
-			s += ", " + a.PV + "HP, ";
-			s += a.age + " ans.";
+			s += ", " + a.PV + " HP, ";
+			s += a.age + " yrs.";
 			System.out.println(s);
 			s = "";
 		}
