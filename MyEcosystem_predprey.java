@@ -8,7 +8,8 @@ public class MyEcosystem_predprey
 
 		// initialisation generale
 
-		if(args.length != 5) {
+		if (args.length != 5)
+		{
 			System.out.println("java MyEcosystem_predprey nbWater nbEarth nbFire nbWind size");
 			System.exit(-1);
 		}
@@ -37,21 +38,13 @@ public class MyEcosystem_predprey
 		World world = new World(dx, dy, true, true);
 
 		for ( int i = 0 ; i != nbWater ; i++ )
-		{
-			world.add(new WaterAgent((int)(Math.random() * dx), (int)(Math.random() * dy), world));
-		}
+			world.add(0);
 		for ( int i = 0 ; i != nbEarth ; i++ )
-		{
-			world.add(new EarthAgent((int)(Math.random() * dx), (int)(Math.random() * dy), world));
-		}
+			world.add(1);
 		for ( int i = 0 ; i != nbFire ; i++ )
-			world.add(new FireAgent((int)(Math.random() * dx), (int)(Math.random() * dy), world));
+			world.add(2);
 		for ( int i = 0 ; i != nbWind ; i++ )
-			world.add(new WindAgent((int)(Math.random() * dx), (int)(Math.random() * dy), world));
-
-		world.setCellState(1, true, 0, 0);
-		world.setCellState(1, true, 1, 0);
-		world.setCellState(1, true, 0, 1);
+			world.add(3);
 
 		world.Status();
 
@@ -67,8 +60,8 @@ public class MyEcosystem_predprey
 			// 3 - iterate
 
 			it++;
-			
-			if(it % 40 == 0)
+
+			if (it % 40 == 0)
 				world.Status();
 
 			try

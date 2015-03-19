@@ -53,7 +53,7 @@ public class World
 				}
 			}
 		}
-		
+
 		int radius = _dx / 3;
 		while (radius >= 0)
 		{
@@ -67,10 +67,10 @@ public class World
 			{
 				Buffer0[i][j][4] = true;
 				Buffer1[i][j][4] = true;
-				if(Buffer0[i][j][0])
-					setCellState (1,(Math.random() < 0.1? true : false),i,j);
+				if (Buffer0[i][j][0])
+					setCellState (1, (Math.random() < 0.1 ? true : false), i, j);
 				Buffer1[i][j][1] = Buffer0[i][j][1];
-					
+
 			}
 		}
 	}
@@ -178,9 +178,41 @@ public class World
 		return _dy;
 	}
 
-	public void add (Agent agent)
+	public void add (int agent)
 	{
-		agents.add(agent);
+		int x;
+		int y;
+
+		switch (agent)
+		{
+			case 0:
+				x = (int)(Math.random () * _dx);
+				y = (int)(Math.random () * _dy);
+				agents.add(new WaterAgent(x,y,this));
+				break;
+
+			case 1:
+				x = (int)(Math.random () * _dx);
+				y = (int)(Math.random () * _dy);
+				agents.add(new EarthAgent(x,y,this));
+				break;
+
+			case 2:
+				x = (int)(Math.random () * _dx);
+				y = (int)(Math.random () * _dy);
+				agents.add(new FireAgent(x,y,this));
+				break;
+
+			case 3:
+				x = (int)(Math.random () * _dx);
+				y = (int)(Math.random () * _dy);
+				agents.add(new WindAgent(x,y,this));
+				break;
+
+			default:
+				System.out.println ("World.add : Input Error");
+				System.exit (-1);
+		}
 	}
 
 	public void stepWorld() // world THEN agents
@@ -229,6 +261,8 @@ public class World
 
 			s += a._x + "x" + a._y + ", ";
 			s += (a._alive ? "Alive" : "Dead");
+			s += ", " + a.PV + "HP, ";
+			s += a.age + " ans.";
 			System.out.println(s);
 			s = "";
 		}

@@ -31,6 +31,8 @@ public abstract class Agent
 	int     _redValue;
 	int     _greenValue;
 	int     _blueValue;
+	int age;
+	int age_it;
 
 	public Agent( int __x, int __y, World __w)
 	{
@@ -39,12 +41,12 @@ public abstract class Agent
 		_y = __y;
 		_world = __w;
 
-		_redValue = 255;
-		_greenValue = 0;
-		_blueValue = 0;
-
 		reproduction=1;
+		age = 0;
+		age_it = 0;
+		
 		PV = 100;
+		
 		mode = 0;
 		_orient = 0;
 	}

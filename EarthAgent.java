@@ -30,13 +30,17 @@ public class EarthAgent extends Agent
 	{
 		if (_alive)
 		{
-			if (reproduction == 20)
+			/*if (reproduction == 20)
 				reproduction = 0;
 			else if (reproduction >= 1)
-				reproduction++;
-			PV = PV - 1;
+				reproduction++;*/
+
+			age_it = (age_it + 1) % 2;
+			if (age_it % 2 == 0)
+				age += 1;
+
 			attaque_alentour(place);
-			if (PV <= 0)
+			if (PV <= 0 || age == 100)
 				_alive = false;
 			repere_environement();
 			deplacement();
@@ -58,14 +62,14 @@ public class EarthAgent extends Agent
 
 	void repere_environement()
 	{
-		if(!_alive)
+		if (!_alive)
 			return;
 
 	}
 
 	void attaque_alentour (int place)
 	{
-		if(!_alive)
+		if (!_alive)
 			return;
 		int j = 0;
 		for (int i = 0; i != _world.agents.size(); i += 1)
@@ -86,27 +90,26 @@ public class EarthAgent extends Agent
 			// si un agent de terre se trouve au meme endroit que lui, que
 			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (place != i) && (a._alive = true) && (reproduction == 0))
 			{
-				reproduction = 1;
 				boolean test = false;
 				while ((j < _world.agents.size()) && (test == false))
 				{
 					Agent b = _world.agents.get(j);
-					if ((b instanceof EarthAgent) && !a._alive)
+					if ((b instanceof EarthAgent) && !a._alive && (PV > 20) && (age < 10) && (age >= 40))
 					{
-						b = new EarthAgent(_x - (int)(Math.random()*3 - 1), _y, _world);
+						b = new EarthAgent(_x - (int)(Math.random() * 3 - 1), _y, _world);
 						test = true;
 					}
 					j++;
 				}
 				if (!test)
-					_world.add(new EarthAgent(_x, _y, _world));
+					_world.add (1);
 			}
 		}
 
 	}
 	void deplacement ()
 	{
-		if(!_alive)
+		if (!_alive)
 			return;
 		_orient = (int)(Math.random() * 4);
 

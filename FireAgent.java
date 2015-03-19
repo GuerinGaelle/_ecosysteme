@@ -31,13 +31,12 @@ public class FireAgent extends Agent
 	{
 		if (_alive)
 		{
-			if (reproduction == 20)
+			/*if (reproduction == 20)
 				reproduction = 0;
 			else if (reproduction >= 1)
-				reproduction++;
-			PV = PV - 1;
+				reproduction++;*/
 			attaque_alentour(place);
-			if (PV <= 0)
+			if (PV <= 0 || age == 100)
 				_alive = false;
 			repere_environement();
 			deplacement();
@@ -87,7 +86,7 @@ public class FireAgent extends Agent
 				while ((j < _world.agents.size()) && (test == false))
 				{
 					Agent b = _world.agents.get(j);
-					if ((b instanceof FireAgent) && !a._alive)
+					if ((b instanceof FireAgent) && !a._alive && (PV > 20) && (age < 10) && (age >= 40))
 					{
 						b = new FireAgent(_x, _y, _world);
 						test = true;
@@ -95,7 +94,7 @@ public class FireAgent extends Agent
 					j++;
 				}
 				if (!test)
-					_world.add(new FireAgent(_x, _y, _world));
+					_world.add (2);
 			}
 		}
 

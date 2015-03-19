@@ -87,7 +87,7 @@ public class WaterAgent extends Agent
 				while ((j < _world.agents.size()) && (test == false))
 				{
 					Agent b = _world.agents.get(j);
-					if ((b instanceof WaterAgent) && !a._alive)
+					if ((b instanceof WaterAgent) && !a._alive && (PV > 20) && (age < 10) && (age >= 40))
 					{
 						b = new WaterAgent(_x, _y, _world);
 						test = true;
@@ -95,7 +95,7 @@ public class WaterAgent extends Agent
 					j++;
 				}
 				if (!test)
-					_world.add(new WaterAgent(_x, _y, _world));
+					_world.add (0);
 			}
 		}
 

@@ -87,7 +87,7 @@ public class WindAgent extends Agent
 				while ((j < _world.agents.size()) && (test == false))
 				{
 					Agent b = _world.agents.get(j);
-					if ((b instanceof WindAgent) && !a._alive)
+					if ((b instanceof WindAgent) && !a._alive && (PV > 20) && (age < 10) && (age >= 40))
 					{
 						b = new WindAgent(_x, _y, _world);
 						test = true;
@@ -95,7 +95,7 @@ public class WindAgent extends Agent
 					j++;
 				}
 				if (!test)
-					_world.add(new WindAgent(_x, _y, _world));
+					_world.add (3);
 			}
 		}
 
