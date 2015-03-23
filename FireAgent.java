@@ -47,11 +47,11 @@ public class FireAgent extends Agent
 		{
 			try
 			{
-				img = ImageIO.read(new File("MortAgent.png"));
+				img = ImageIO.read(new File("deathfire.png"));
 			}
 			catch (Exception e)
 			{
-				System.out.println("MortAgent : sprite not found");
+				System.out.println("deathfire : sprite not found");
 				System.exit(-1);
 			}
 		}

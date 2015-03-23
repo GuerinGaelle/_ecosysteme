@@ -14,8 +14,8 @@ public class MyEcosystem_predprey
 			System.exit(-1);
 		}*/
 
-		int dx = 20; //Integer.parseInt(args[4]);
-		int dy = 20;//Integer.parseInt(args[4]);
+		int dx = 30; //Integer.parseInt(args[4]);
+		int dy = 30;//Integer.parseInt(args[4]);
 
 		//int reprodWater = 6;
 		//int reprodEarth = 10;

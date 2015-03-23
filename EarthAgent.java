@@ -42,6 +42,7 @@ public class EarthAgent extends Agent
 				reproduction++;*/
 			//PV = PV - 1;
 			age++;
+			deplacement();
 			repere_environement();
 			attaque_alentour(place);
 			if ((PV <= 0)|| (age==100))
@@ -51,11 +52,11 @@ public class EarthAgent extends Agent
 		{
 			try
 			{
-				img = ImageIO.read(new File("MortAgent.png"));
+				img = ImageIO.read(new File("deathearth.png"));
 			}
 			catch (Exception e)
 			{
-				System.out.println("MortAgent : sprite not found");
+				System.out.println("deathearth : sprite not found");
 				System.exit(-1);
 			}
 		}

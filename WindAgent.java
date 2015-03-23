@@ -47,11 +47,11 @@ public class WindAgent extends Agent
 		{
 			try
 			{
-				img = ImageIO.read(new File("MortAgent.png"));
+				img = ImageIO.read(new File("deathwind.png"));
 			}
 			catch (Exception e)
 			{
-				System.out.println("MortAgent : sprite not found");
+				System.out.println("deathwind : sprite not found");
 				System.exit(-1);
 			}
 		}

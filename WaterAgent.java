@@ -48,11 +48,11 @@ public class WaterAgent extends Agent
 		{
 			try
 			{
-				img = ImageIO.read(new File("MortAgent.png"));
+				img = ImageIO.read(new File("deathwater.png"));
 			}
 			catch (Exception e)
 			{
-				System.out.println("MortAgent : sprite not found");
+				System.out.println("deathwater : sprite not found");
 				System.exit(-1);
 			}
 		}

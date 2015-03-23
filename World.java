@@ -200,6 +200,16 @@ public class World
 			case 0:
 				x = (int)(Math.random () * (2 * rayon) + rayon);
 				y = (int)(Math.random () * (2 * rayon) + rayon);
+				if (getCellState(x,y)[1]) {
+					if(!getCellState(x,y-1)[1])
+						y -=1;
+					if(!getCellState(x,y+1)[1])
+						y +=1;
+					if(!getCellState(x-1,y)[1])
+						x -=1;
+					if(!getCellState(x+1,y)[1])
+						x +=1;
+				}
 				agents.add(new WaterAgent(x,y,this));
 				break;
 
