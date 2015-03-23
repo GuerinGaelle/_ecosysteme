@@ -96,7 +96,7 @@ public class WindAgent extends Agent
 					j++;
 				}
 				if (!test)
-					_world.add(new WindAgent(_x, _y, _world));
+					_world.add(3);
 			}
 		}
 

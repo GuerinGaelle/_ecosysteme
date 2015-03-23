@@ -62,6 +62,10 @@ public class WaterAgent extends Agent
 	{
 		if(!_alive)
 			return;
+		if (_world.getCellState(_x, _y)[3]||_world.getCellState(_x, _y)[5]){
+			_alive=false;
+			return;
+		}
 	}
 
 	void attaque_alentour (int place)
@@ -96,7 +100,7 @@ public class WaterAgent extends Agent
 					j++;
 				}
 				if (!test)
-					_world.add(new WaterAgent(_x, _y, _world));
+					_world.add(0);
 			}
 		}
 
@@ -111,12 +115,12 @@ public class WaterAgent extends Agent
 		switch ( _orient )
 		{
 		case 0: // nord
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+				break;*/
 
 			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
 				break;
 
 			_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
@@ -124,12 +128,12 @@ public class WaterAgent extends Agent
 
 
 		case 1: // est
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+				break;*/
 
 			if((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
 				break;
 
 			_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
@@ -137,12 +141,12 @@ public class WaterAgent extends Agent
 
 
 		case 2: // sud
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+				break;*/
 
 			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
 				break;
 
 			_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
@@ -150,12 +154,12 @@ public class WaterAgent extends Agent
 
 
 		case 3: // ouest
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+				break;*/
 
 			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
 				break;
 
 			_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();

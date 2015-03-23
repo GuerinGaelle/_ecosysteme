@@ -61,6 +61,10 @@ public class FireAgent extends Agent
 	{
 		if(!_alive)
 			return;
+		if (_world.getCellState(_x, _y)[4]){
+			_alive=false;
+			return;
+		}
 
 	}
 
@@ -96,7 +100,7 @@ public class FireAgent extends Agent
 					j++;
 				}
 				if (!test)
-					_world.add(new FireAgent(_x, _y, _world));
+					_world.add(2);
 			}
 		}
 
@@ -104,59 +108,81 @@ public class FireAgent extends Agent
 
 	void deplacement ()
 	{
+		int tour=0;
 		if(!_alive)
 			return;
 		_orient = (int)(Math.random() * 4);
-
+		while (tour<2){
 		switch ( _orient )
 		{
 		case 0: // nord
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				break;
+			
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+				break;*/
 
 			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)){
+				/*tour++;
+				_orient=(_orient+1);*/
 				break;
-
+			}
+			
+			else{
 			_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
-			break;
-
+			return;
+			}
 
 		case 1: // est
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+				break;*/
 
 			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)){
+				/*tour++;
+				_orient=(_orient+1);*/
 				break;
-
+			}
+			
+			else {
 			_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
-			break;
-
+			return;
+			}
 
 		case 2: // sud
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+				break;*/
 
 			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
-				break;
-
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)){
+					/*tour++;
+					_orient=(_orient+1);*/
+					break;
+				}
+			
+			else {
 			_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
-			break;
-
+			return;
+			}
 
 		case 3: // ouest
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+				break;*/
 
 			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
+				||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)){
+				/*tour++;
+				_orient=(_orient+1);*/
 				break;
-
-			_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
-			break;
+			}
+			
+			else{
+				_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
+				return;
+			}
 		}
+		tour++;
 
+
+	}
 	}
 }

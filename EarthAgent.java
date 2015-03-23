@@ -11,10 +11,11 @@ import javax.swing.JPanel;
 
 public class EarthAgent extends Agent
 {
-
+	boolean enterre;
 	public EarthAgent(int __x, int __y, World __w)
 	{
 		super(__x, __y, __w);
+		enterre=false;
 		try
 		{
 			img = ImageIO.read(new File("EarthAgent.png"));
@@ -28,7 +29,12 @@ public class EarthAgent extends Agent
 
 	public void step(int place)
 	{
-		if (_alive)
+		if (enterre && _alive){
+			deterre();
+			return;
+		}
+		else{
+			if (_alive)
 		{
 			/*if (reproduction == 20)
 				reproduction = 0;
@@ -36,12 +42,11 @@ public class EarthAgent extends Agent
 				reproduction++;*/
 			//PV = PV - 1;
 			age++;
+			repere_environement();
 			attaque_alentour(place);
 			if ((PV <= 0)|| (age==100))
-				_alive = false;
-			repere_environement();
-			deplacement();
-		}
+			_alive = false;
+			}
 		else
 		{
 			try
@@ -55,13 +60,52 @@ public class EarthAgent extends Agent
 			}
 		}
 	}
-
+	}
 
 	void repere_environement()
 	{
 		if(!_alive)
 			return;
+		if ((_world.getCellState(_x, _y)[4])||_world.getCellState(_x, _y)[3]||_world.getCellState(_x, _y)[5]){
+			_alive=false;
+			return;
+		}
+		if (_world.explosion)
+			if ((_world.getCellState(_x, _y-1)[1]||_world.getCellState(_x, _y-1)[3]
+				||_world.getCellState(_x, _y-1)[4] || _world.getCellState(_x, _y-1)[5])
+				&&(_world.getCellState(_x, _y+1)[1]||_world.getCellState(_x, _y+1)[3]
+				||_world.getCellState(_x, _y+1)[4] || _world.getCellState(_x, _y+1)[5])
+				&&(_world.getCellState(_x-1, _y)[1]||_world.getCellState(_x-1, _y)[3]
+				||_world.getCellState(_x-1, _y)[4] || _world.getCellState(_x-1, _y)[5])
+				&&(_world.getCellState(_x+1, _y)[1]||_world.getCellState(_x+1, _y)[3]
+				||_world.getCellState(_x+1, _y)[4] || _world.getCellState(_x+1, _y)[5])){
+					enterre=true;
+					return;		
+			}
 
+		if (_world.getCellState(_x, _y)[2]){
+			_world.setCellState(2, false,_x, _y);
+			_world.setCellState(0, true, _x, _y);
+			
+		}
+
+	}
+	
+	void deterre(){
+		if (!((_world.getCellState(_x, _y-1)[1]||_world.getCellState(_x, _y-1)[3]
+				||_world.getCellState(_x, _y-1)[4] || _world.getCellState(_x, _y-1)[5])
+				&&(_world.getCellState(_x, _y+1)[1]||_world.getCellState(_x, _y+1)[3]
+						||_world.getCellState(_x, _y+1)[4] || _world.getCellState(_x, _y+1)[5])
+				&&(_world.getCellState(_x-1, _y)[1]||_world.getCellState(_x-1, _y)[3]
+						||_world.getCellState(_x-1, _y)[4] || _world.getCellState(_x-1, _y)[5])
+				&&(_world.getCellState(_x+1, _y)[1]||_world.getCellState(_x+1, _y)[3]
+						||_world.getCellState(_x+1, _y)[4] || _world.getCellState(_x+1, _y)[5])
+	
+				)){
+			enterre=false;
+			return;		
+		}
+		
 	}
 
 	void attaque_alentour (int place)
@@ -100,11 +144,12 @@ public class EarthAgent extends Agent
 					j++;
 				}
 				if (!test)
-					_world.add(new EarthAgent(_x, _y, _world));
+					_world.add(1);
 			}
 		}
 
 	}
+	
 	void deplacement ()
 	{
 		if(!_alive)
@@ -114,13 +159,11 @@ public class EarthAgent extends Agent
 		switch ( _orient )
 		{
 		case 0: // nord
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
+				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
 				break;
 
 			_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
@@ -128,47 +171,39 @@ public class EarthAgent extends Agent
 
 
 		case 1: // est
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
-				break;
+			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
+					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
+					break;
 
 			_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
 			break;
 
 
 		case 2: // sud
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
+				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
-				break;
+			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
+					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
+					break;
 
 			_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
 			break;
 
 
 		case 3: // ouest
-			if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				break;
+			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
+				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
-				break;
+			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
+					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
+					break;
 
 			_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
 			break;
 		}
-
 	}
-
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class World
 {
-
+	boolean explosion;
 	int _dx;
 	int _dy;
 
@@ -26,6 +26,8 @@ public class World
 
 		image = new SpriteDemo(_dx, _dy, this);
 
+		explosion= false;
+		
 		buffering = __buffering;
 		cloneBuffer = __cloneBuffer;
 
@@ -53,11 +55,11 @@ public class World
 				}
 			}
 		}
-		
+
 		int radius = _dx / 3;
 		while (radius >= 0)
 		{
-			traceCircle (_dx / 2, _dy / 2, radius);
+			traceCircle (0,true,_dx / 2, _dy / 2, radius);
 			radius -= 1;
 		}
 
@@ -67,10 +69,15 @@ public class World
 			{
 				Buffer0[i][j][4] = true;
 				Buffer1[i][j][4] = true;
-				if(Buffer0[i][j][0])
-					setCellState (1,(Math.random() < 0.1? true : false),i,j);
-				Buffer1[i][j][1] = Buffer0[i][j][1];
+				
+				if (Buffer0[i][j][0]){
+					setCellState (1, (Math.random() < 0.1 ? true : false), i, j);
+					Buffer0[i][j][4] = false;
+					Buffer1[i][j][4] = false;
 					
+				}
+				Buffer1[i][j][1] = Buffer0[i][j][1];
+
 			}
 		}
 	}
@@ -178,9 +185,46 @@ public class World
 		return _dy;
 	}
 
-	public void add (Agent agent)
+	public void add (int agent)
 	{
-		agents.add(agent);
+		// earth agent : 1
+		//fire 2
+		//water 0
+		//wind 3
+		int x;
+		int y;
+		int center = _dx / 2;
+		int rayon = _dx / 3;
+		switch (agent)
+		{
+			case 0:
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
+				agents.add(new WaterAgent(x,y,this));
+				break;
+
+			case 1:
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
+				agents.add(new EarthAgent(x,y,this));
+				break;
+
+			case 2:
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
+				agents.add(new FireAgent(x,y,this));
+				break;
+
+			case 3:
+				x = (int)(Math.random () * (2 * rayon) + rayon);
+				y = (int)(Math.random () * (2 * rayon) + rayon);
+				agents.add(new WindAgent(x,y,this));
+				break;
+
+			default:
+				System.out.println ("World.add : Input Error");
+				System.exit (-1);
+		}
 	}
 
 	public void stepWorld() // world THEN agents
@@ -229,6 +273,8 @@ public class World
 
 			s += a._x + "x" + a._y + ", ";
 			s += (a._alive ? "Alive" : "Dead");
+			s += ", " + a.PV + " HP, ";
+			s += a.age + " yrs.";
 			System.out.println(s);
 			s = "";
 		}
@@ -237,7 +283,7 @@ public class World
 		System.out.println("\n\n");
 	}
 
-	void traceCircle (int x_0, int y_0, int r)
+	void traceCircle (int type, boolean bool, int x_0, int y_0, int r)
 	/*Inspire de l'algorithme de trace de cercle d'Andres*/
 	/*Pseudo-code sur Wikipedia*/
 	{
@@ -247,14 +293,14 @@ public class World
 
 		while (y >= x)
 		{
-			setCellState(0, true, x_0 + x, y_0 + y);
-			setCellState(0, true, x_0 + y, y_0 + x);
-			setCellState(0, true, x_0 - x, y_0 + y);
-			setCellState(0, true, x_0 - y, y_0 + x);
-			setCellState(0, true, x_0 + x, y_0 - y);
-			setCellState(0, true, x_0 + y, y_0 - x);
-			setCellState(0, true, x_0 - x, y_0 - y);
-			setCellState(0, true, x_0 - y, y_0 - x);
+			setCellState(type, bool, x_0 + x, y_0 + y);
+			setCellState(type, bool, x_0 + y, y_0 + x);
+			setCellState(type, bool, x_0 - x, y_0 + y);
+			setCellState(type, bool, x_0 - y, y_0 + x);
+			setCellState(type, bool, x_0 + x, y_0 - y);
+			setCellState(type, bool, x_0 + y, y_0 - x);
+			setCellState(type, bool, x_0 - x, y_0 - y);
+			setCellState(type, bool, x_0 - y, y_0 - x);
 
 			if (d >= 2 * x)
 			{
