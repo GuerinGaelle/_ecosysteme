@@ -337,14 +337,14 @@ public class World
 
 		while (y >= x)
 		{
-			setCellState(type, bool, x_0 + x, y_0 + y);
-			setCellState(type, bool, x_0 + y, y_0 + x);
-			setCellState(type, bool, x_0 - x, y_0 + y);
-			setCellState(type, bool, x_0 - y, y_0 + x);
-			setCellState(type, bool, x_0 + x, y_0 - y);
-			setCellState(type, bool, x_0 + y, y_0 - x);
-			setCellState(type, bool, x_0 - x, y_0 - y);
-			setCellState(type, bool, x_0 - y, y_0 - x);
+			setCellState(type, bool, (x_0 + x + _dx) % _dx, (y_0 + y + _dy) % _dy);
+			setCellState(type, bool, (x_0 + y + _dx) % _dx, (y_0 + x + _dy) % _dy);
+			setCellState(type, bool, (x_0 - x + _dx) % _dx, (y_0 + y + _dy) % _dy);
+			setCellState(type, bool, (x_0 - y + _dx) % _dy, (y_0 + x + _dy) % _dy);
+			setCellState(type, bool, (x_0 + x + _dx) % _dx, (y_0 - y + _dy) % _dy);
+			setCellState(type, bool, (x_0 + y + _dx) % _dx, (y_0 - x + _dy) % _dy);
+			setCellState(type, bool, (x_0 - x + _dx) % _dx, (y_0 - y + _dy) % _dy);
+			setCellState(type, bool, (x_0 - y + _dx) % _dx, (y_0 - x + _dy) % _dy);
 
 			if (d >= 2 * x)
 			{

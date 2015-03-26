@@ -13,9 +13,12 @@ import javax.swing.JPanel;
 public class WindAgent extends Agent
 {
 
+	int nbWind=0;
+	
 	public WindAgent(int __x, int __y, World __w)
 	{
 		super(__x, __y, __w);
+		nbWind++;
 		try
 		{
 			img = ImageIO.read(new File("WindAgent.png"));
@@ -29,6 +32,9 @@ public class WindAgent extends Agent
 
 	public void step (int place)
 	{
+		if ((PV <= 0)|| (age==100))
+			_alive = false;
+		
 		if (_alive)
 		{
 			/*PV = PV - 1;
@@ -38,10 +44,8 @@ public class WindAgent extends Agent
 				reproduction++;*/
 			age++;
 			attaque_alentour(place);
-			if ((PV <= 0)|| (age==100))
-				_alive = false;
 			repere_environement();
-			deplacement();
+			deplacementChasse();
 		}
 		else
 		{
@@ -63,6 +67,7 @@ public class WindAgent extends Agent
 			return;
 
 	}
+	
 
 	void attaque_alentour (int place)
 	{
@@ -95,17 +100,20 @@ public class WindAgent extends Agent
 					}
 					j++;
 				}
-				if (!test)
+				if ((!test)&&(nbWind>=5))
 					_world.add(3);
 			}
 		}
 
 	}
+	
 
 	void deplacement ()
 	{
 		if(!_alive)
 			return;
+
+		
 		_orient = (int)(Math.random() * 4);
 		switch ( _orient ){
 		
@@ -124,6 +132,57 @@ public class WindAgent extends Agent
 		case 3: // ouest
 			_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
 			break;
+		}
+
+	}
+
+	void deplacementChasse(){
+		if(!_alive)
+			return;
+		
+		int x=1000;
+		int y=1000;
+		Agent b=null;
+				
+		for (int i = 0; i != _world.agents.size(); i += 1)
+		{
+			Agent a = _world.agents.get(i);
+			if ((a instanceof FireAgent)&&(a._alive)&&(Math.abs(x-_x)>=Math.abs(a._x-_x))&&(Math.abs(y-_y)>=Math.abs(a._y-_y))){
+				b=a;
+				x=a._x;
+				y=a._y;
+			}
+		}
+		
+		
+		if (b!=null){
+			_orient = b._orient;
+			if (b._x<_x)
+				_x=_x-1;
+			else if (b._y<_y)
+				_y=_y-1;
+			else if (b._x>_x)
+				_x=_x+1;
+			else if (b._y>_y)
+				_y=_y+1;
+
+		}
+		else{
+			_orient = (int)(Math.random() * 4);
+			switch ( _orient ){
+			case 0: // nord
+				_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
+				break;
+			case 1: // est
+				_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
+				break;
+			case 2: // sud
+				_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
+				break;
+			case 3: // ouest
+				_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
+				break;
+			}
 		}
 
 	}

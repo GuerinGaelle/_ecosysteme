@@ -29,6 +29,8 @@ public class FireAgent extends Agent
 
 	public void step(int place)
 	{
+		if ((PV <= 0)|| (age==100))
+			_alive = false;
 		if (_alive)
 		{
 			/*if (reproduction == 20)
@@ -38,8 +40,6 @@ public class FireAgent extends Agent
 			//PV = PV - 1;
 			age++;
 			attaque_alentour(place);
-			if ((PV <= 0)|| (age==100))
-				_alive = false;
 			repere_environement();
 			deplacement();
 		}

@@ -19,8 +19,6 @@ public abstract class Agent{
 	int     _x;
 	int     _y;
 	int     _orient;
-	//int_etat;int reproduce_it;int _redValue;int_greenValue;int_blueValue;int reproduction;static int blueId=2;
-	//_redValue = 255;//_greenValue = 0;//_blueValue = 0;//reproduction=1; static int greenId=1;static int redId=0;
 	int		age;
 
 	public Agent( int __x, int __y, World __w)

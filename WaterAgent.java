@@ -30,6 +30,8 @@ public class WaterAgent extends Agent
 
 	public void step(int place)
 	{
+		if ((PV <= 0)|| (age==100))
+			_alive = false;
 		if (_alive)
 		{
 			/*PV = PV - 1;
@@ -39,8 +41,6 @@ public class WaterAgent extends Agent
 				reproduction++;*/
 			age++;
 			attaque_alentour(place);
-			if ((PV <= 0)|| (age==100))
-				_alive = false;
 			repere_environement();
 			deplacement();
 		}
@@ -85,7 +85,8 @@ public class WaterAgent extends Agent
 				PV = PV - 20;
 				if ((float)Math.random() <= 0.85)PV = PV - 50;
 			}
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WaterAgent) && (place != i) && (a._alive = true) && (age<40)&&(age>=10)&&(PV>20))
+			if ((a._x == _x) && (a._y == _y) && (a instanceof WaterAgent) && (place != i) 
+					&& (a._alive = true) && (age<40)&&(age>=10)&&(PV>20))
 			{
 				//reproduction = 1;
 				boolean test = false;

@@ -29,6 +29,8 @@ public class EarthAgent extends Agent
 
 	public void step(int place)
 	{
+		if ((PV <= 0)|| (age==100))
+		_alive = false;
 		if (enterre && _alive){
 			deterre();
 			return;
@@ -45,22 +47,20 @@ public class EarthAgent extends Agent
 			deplacement();
 			repere_environement();
 			attaque_alentour(place);
-			if ((PV <= 0)|| (age==100))
-			_alive = false;
 			}
-		else
-		{
-			try
+			else
 			{
-				img = ImageIO.read(new File("deathearth.png"));
-			}
-			catch (Exception e)
-			{
-				System.out.println("deathearth : sprite not found");
-				System.exit(-1);
+				try
+				{
+					img = ImageIO.read(new File("deathearth.png"));
+				}
+				catch (Exception e)
+				{
+					System.out.println("deathearth : sprite not found");
+					System.exit(-1);
+				}
 			}
 		}
-	}
 	}
 
 	void repere_environement()
@@ -156,7 +156,6 @@ public class EarthAgent extends Agent
 		if(!_alive)
 			return;
 		_orient = (int)(Math.random() * 4);
-		System.out.println (_orient);
 		switch ( _orient )
 		{
 		case 0: // nord
