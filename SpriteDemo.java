@@ -28,6 +28,10 @@ public class SpriteDemo extends JPanel implements Serializable
 	Image grassSprite;
 	Image treeSprite;
 	Image waterSprite;
+	Image tsunamiSprite;
+	Image lavaSprite;
+	Image magmaSprite;
+	Image rockSprite;
 
 	public SpriteDemo(int x, int y, World w)
 	{
@@ -38,6 +42,42 @@ public class SpriteDemo extends JPanel implements Serializable
 		catch (Exception e)
 		{
 			System.out.println("Grass : sprite not found");
+			System.exit(-1);
+		}
+		try
+		{
+			rockSprite = ImageIO.read(new File("rock.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("Volcanic Rock : sprite not found");
+			System.exit(-1);
+		}
+		try
+		{
+			lavaSprite = ImageIO.read(new File("lava.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("Lava : sprite not found");
+			System.exit(-1);
+		}
+		try
+		{
+			magmaSprite = ImageIO.read(new File("magma.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("Magmar : sprite not found");
+			System.exit(-1);
+		}
+		try
+		{
+			tsunamiSprite = ImageIO.read(new File("tsunami.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("Tsunami : sprite not found");
 			System.exit(-1);
 		}
 		try
