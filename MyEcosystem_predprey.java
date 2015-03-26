@@ -14,8 +14,8 @@ public class MyEcosystem_predprey
 			System.exit(-1);
 		}*/
 
-		int dx = 30; //Integer.parseInt(args[4]);
-		int dy = 30;//Integer.parseInt(args[4]);
+		int dx = 25; //Integer.parseInt(args[4]);
+		int dy = 25;//Integer.parseInt(args[4]);
 
 		//int reprodWater = 6;
 		//int reprodEarth = 10;
@@ -30,7 +30,7 @@ public class MyEcosystem_predprey
 		int displayWidth = dx;  // 200
 		int displayHeight = dy; // 200
 
-		int delai = 200;//100; // -- delay before refreshing display -- program is hold during delay, even if no screen update was requested. USE WITH CARE.
+		int delai = 300;//100; // -- delay before refreshing display -- program is hold during delay, even if no screen update was requested. USE WITH CARE.
 		int nombreDePasMaximum = Integer.MAX_VALUE;
 		int it = 0;
 
@@ -48,7 +48,7 @@ public class MyEcosystem_predprey
 			world.add(3);
 
 		world.Status();
-
+		world.explosion = true;
 		// mise a jour de l'etat du monde
 		while ( it != nombreDePasMaximum )
 		{

@@ -156,15 +156,17 @@ public class EarthAgent extends Agent
 		if(!_alive)
 			return;
 		_orient = (int)(Math.random() * 4);
-
+		System.out.println (_orient);
 		switch ( _orient )
 		{
 		case 0: // nord
 			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
 				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
-				&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
+			if ((_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
+					||(_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+					||(_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
+					||(_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
 				break;
 
 			_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
@@ -175,8 +177,10 @@ public class EarthAgent extends Agent
 			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
 				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
-					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
+			if ((_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
+					||(_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[3] == true)
+					||(_world.getCellState(( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true)
+					||(_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[5] == true))
 					break;
 
 			_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
@@ -187,8 +191,10 @@ public class EarthAgent extends Agent
 			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
 				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
-					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
+			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
+					||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+					||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
+					||(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
 					break;
 
 			_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
@@ -199,8 +205,10 @@ public class EarthAgent extends Agent
 			/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
 				break;*/
 
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[0] == false)
-					&&(_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[2] == false))
+			if ((_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
+					||(_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[3] == true)
+					||(_world.getCellState(( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true)
+					||(_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[5] == true))
 					break;
 
 			_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();

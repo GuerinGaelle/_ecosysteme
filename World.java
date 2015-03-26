@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class World
 {
 	boolean explosion;
+
 	int _dx;
 	int _dy;
 
@@ -26,13 +27,13 @@ public class World
 
 		image = new SpriteDemo(_dx, _dy, this);
 
-		explosion= false;
-		
+		explosion = false;
+
 		buffering = __buffering;
 		cloneBuffer = __cloneBuffer;
 
-		Buffer0 = new boolean[_dx][_dy][6];
-		Buffer1 = new boolean[_dx][_dy][6];
+		Buffer0 = new boolean[_dx][_dy][7];
+		Buffer1 = new boolean[_dx][_dy][7];
 		alt = new int[_dx][_dy];
 		/*0: herbe*/
 		/*1: arbre*/
@@ -59,7 +60,7 @@ public class World
 		int radius = _dx / 3;
 		while (radius >= 0)
 		{
-			traceCircle (0,true,_dx / 2, _dy / 2, radius);
+			traceCircle (0, true, _dx / 2, _dy / 2, radius);
 			radius -= 1;
 		}
 
@@ -69,12 +70,13 @@ public class World
 			{
 				Buffer0[i][j][4] = true;
 				Buffer1[i][j][4] = true;
-				
-				if (Buffer0[i][j][0]){
+
+				if (Buffer0[i][j][0])
+				{
 					setCellState (1, (Math.random() < 0.1 ? true : false), i, j);
 					Buffer0[i][j][4] = false;
 					Buffer1[i][j][4] = false;
-					
+
 				}
 				Buffer1[i][j][1] = Buffer0[i][j][1];
 
@@ -144,8 +146,9 @@ public class World
 	 */
 	public void step ( )
 	{
-		stepWorld();
-		stepAgents();
+		analyze ();
+		stepWorld ();
+		stepAgents ();
 
 		if ( buffering && cloneBuffer )
 		{
@@ -165,6 +168,36 @@ public class World
 			activeIndex = (activeIndex + 1 ) % 2; // switch buffer index
 		}
 
+	}
+
+	void analyze ()
+	{
+		for (int i = 0; i < _dx; i += 1)
+		{
+			for (int j = 0; j < _dy; j += 1)
+			{
+
+				if (getCellState(i, j)[4] && getCellState(i, j)[5])
+				{
+					setCellState (4, false, i, j);
+					setCellState (5, false, i, j);
+					setCellState (2, true, i, j);
+				}
+
+				if (getCellState(i, j)[1] && getCellState(i, j)[5])
+				{
+					setCellState (1, false, i, j);
+				}
+
+				if (getCellState(i, j)[3] && getCellState(i, j)[4])
+				{
+					setCellState (4, false, i, j);
+					setCellState (5, false, i, j);
+					setCellState (2, true, i, j);
+				}
+
+			}
+		}
 	}
 
 	public boolean[][][] getCurrentBuffer()
@@ -197,43 +230,44 @@ public class World
 		int rayon = _dx / 3;
 		switch (agent)
 		{
-			case 0:
-				x = (int)(Math.random () * (2 * rayon) + rayon);
-				y = (int)(Math.random () * (2 * rayon) + rayon);
-				if (getCellState(x,y)[1]) {
-					if(!getCellState(x,y-1)[1])
-						y -=1;
-					if(!getCellState(x,y+1)[1])
-						y +=1;
-					if(!getCellState(x-1,y)[1])
-						x -=1;
-					if(!getCellState(x+1,y)[1])
-						x +=1;
-				}
-				agents.add(new WaterAgent(x,y,this));
-				break;
+		case 0:
+			x = (int)(Math.random () * (2 * rayon) + rayon);
+			y = (int)(Math.random () * (2 * rayon) + rayon);
+			if (getCellState(x, y)[1])
+			{
+				if (!getCellState(x, y - 1)[1])
+					y -= 1;
+				if (!getCellState(x, y + 1)[1])
+					y += 1;
+				if (!getCellState(x - 1, y)[1])
+					x -= 1;
+				if (!getCellState(x + 1, y)[1])
+					x += 1;
+			}
+			agents.add(new WaterAgent(x, y, this));
+			break;
 
-			case 1:
-				x = (int)(Math.random () * (2 * rayon) + rayon);
-				y = (int)(Math.random () * (2 * rayon) + rayon);
-				agents.add(new EarthAgent(x,y,this));
-				break;
+		case 1:
+			x = (int)(Math.random () * (2 * rayon) + rayon);
+			y = (int)(Math.random () * (2 * rayon) + rayon);
+			agents.add(new EarthAgent(x, y, this));
+			break;
 
-			case 2:
-				x = (int)(Math.random () * (2 * rayon) + rayon);
-				y = (int)(Math.random () * (2 * rayon) + rayon);
-				agents.add(new FireAgent(x,y,this));
-				break;
+		case 2:
+			x = (int)(Math.random () * (2 * rayon) + rayon);
+			y = (int)(Math.random () * (2 * rayon) + rayon);
+			agents.add(new FireAgent(x, y, this));
+			break;
 
-			case 3:
-				x = (int)(Math.random () * (2 * rayon) + rayon);
-				y = (int)(Math.random () * (2 * rayon) + rayon);
-				agents.add(new WindAgent(x,y,this));
-				break;
+		case 3:
+			x = (int)(Math.random () * (2 * rayon) + rayon);
+			y = (int)(Math.random () * (2 * rayon) + rayon);
+			agents.add(new WindAgent(x, y, this));
+			break;
 
-			default:
-				System.out.println ("World.add : Input Error");
-				System.exit (-1);
+		default:
+			System.out.println ("World.add : Input Error");
+			System.exit (-1);
 		}
 	}
 
@@ -331,4 +365,35 @@ public class World
 		}
 	}
 
+	void lavaFlood (int x, int y, int r)
+	{
+		if (r > 2)
+		{
+			traceCircle (5, true, x, y, r);
+			traceCircle (5, false, x, y, r - 1);
+			traceCircle (3, true, x, y, r - 1);
+			traceCircle (3, false, x, y, r - 2);
+			traceCircle (2, true, x, y, r - 2);
+		}
+
+		if (r == 2)
+		{
+			traceCircle (5, true, x, y, r);
+			traceCircle (5, false, x, y, r - 1);
+			traceCircle (3, true, x, y, r - 1);
+		}
+
+		else
+		{
+			traceCircle (5, true, x, y, r);
+		}
+
+		return;
+	}
+
+	void waterFlood (int x, int y, int r)
+	{
+		traceCircle (5, true, x, y, r);
+		return;
+	}
 }
