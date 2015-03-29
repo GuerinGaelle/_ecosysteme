@@ -12,7 +12,10 @@ import javax.swing.JPanel;
 
 public class FireAgent extends Agent
 {
-
+	int VolcanoIt=1;
+	int VolcanoRadius = 5;
+	
+	
 	public FireAgent(int __x, int __y, World __w)
 	{
 		super(__x, __y, __w);
@@ -29,30 +32,40 @@ public class FireAgent extends Agent
 
 	public void step(int place)
 	{
-		if ((PV <= 0)|| (age==100))
+		if ((PV <= 0)|| (age==100)){
+			PV = 0;
 			_alive = false;
-		if (_alive)
-		{
-			/*if (reproduction == 20)
-				reproduction = 0;
-			else if (reproduction >= 1)
-				reproduction++;*/
-			//PV = PV - 1;
-			age++;
-			attaque_alentour(place);
-			repere_environement();
-			deplacement();
 		}
-		else
-		{
-			try
+		
+		if (_world.explosion && (VolcanoIt <= VolcanoRadius)){
+			_world.lavaFlood(_x, _y, VolcanoIt);
+			VolcanoIt++;
+		}
+		
+		else {
+			if (_alive)
 			{
-				img = ImageIO.read(new File("deathfire.png"));
+				/*if (reproduction == 20)
+					reproduction = 0;
+				else if (reproduction >= 1)
+					reproduction++;*/
+				//PV = PV - 1;
+				age++;
+				attaque_alentour(place);
+				repere_environement();
+				deplacement();
 			}
-			catch (Exception e)
+			else
 			{
-				System.out.println("deathfire : sprite not found");
-				System.exit(-1);
+				try
+				{
+					img = ImageIO.read(new File("deathfire.png"));
+				}
+				catch (Exception e)
+				{
+					System.out.println("deathfire : sprite not found");
+					System.exit(-1);
+				}
 			}
 		}
 	}

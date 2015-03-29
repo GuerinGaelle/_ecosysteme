@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 public class WindAgent extends Agent
 {
 
-	int nbWind=0;
-	
+	int nbWind = 0;
+
 	public WindAgent(int __x, int __y, World __w)
 	{
 		super(__x, __y, __w);
@@ -32,16 +32,19 @@ public class WindAgent extends Agent
 
 	public void step (int place)
 	{
-		if ((PV <= 0)|| (age==100))
+		if ((PV <= 0) || (age == 100))
+		{
+			PV = 0;
 			_alive = false;
-		
+		}
+
 		if (_alive)
 		{
 			/*PV = PV - 1;
 			if (reproduction == 20)
-				reproduction = 0;
+			    reproduction = 0;
 			else if (reproduction >= 1)
-				reproduction++;*/
+			    reproduction++;*/
 			age++;
 			attaque_alentour(place);
 			repere_environement();
@@ -63,15 +66,15 @@ public class WindAgent extends Agent
 
 	void repere_environement()
 	{
-		if(!_alive)
+		if (!_alive)
 			return;
 
 	}
-	
+
 
 	void attaque_alentour (int place)
 	{
-		if(!_alive)
+		if (!_alive)
 			return;
 		int j = 0;
 		for (int i = 0; i != _world.agents.size(); i += 1)
@@ -86,7 +89,7 @@ public class WindAgent extends Agent
 			}
 			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (a._alive = true) )
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (place != i) && (a._alive = true) && (age<40) && (age>=10) && (PV>20))
+			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (place != i) && (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20))
 			{
 				//reproduction = 1;
 				boolean test = false;
@@ -100,27 +103,28 @@ public class WindAgent extends Agent
 					}
 					j++;
 				}
-				if ((!test)&&(nbWind>=5))
+				if ((!test) && (nbWind >= 5))
 					_world.add(3);
 			}
 		}
 
 	}
-	
+
 
 	void deplacement ()
 	{
-		if(!_alive)
+		if (!_alive)
 			return;
 
-		
+
 		_orient = (int)(Math.random() * 4);
-		switch ( _orient ){
-		
+		switch ( _orient )
+		{
+
 		case 0: // nord
 			_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
 			break;
-			
+
 		case 1: // est
 			_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
 			break;
@@ -136,40 +140,45 @@ public class WindAgent extends Agent
 
 	}
 
-	void deplacementChasse(){
-		if(!_alive)
+	void deplacementChasse()
+	{
+		if (!_alive)
 			return;
-		
-		int x=1000;
-		int y=1000;
-		Agent b=null;
-				
+
+		int x = 1000;
+		int y = 1000;
+		Agent b = null;
+
 		for (int i = 0; i != _world.agents.size(); i += 1)
 		{
 			Agent a = _world.agents.get(i);
-			if ((a instanceof FireAgent)&&(a._alive)&&(Math.abs(x-_x)>=Math.abs(a._x-_x))&&(Math.abs(y-_y)>=Math.abs(a._y-_y))){
-				b=a;
-				x=a._x;
-				y=a._y;
+			if ((a instanceof FireAgent) && (a._alive) && (Math.abs(x - _x) >= Math.abs(a._x - _x)) && (Math.abs(y - _y) >= Math.abs(a._y - _y)))
+			{
+				b = a;
+				x = a._x;
+				y = a._y;
 			}
 		}
-		
-		
-		if (b!=null){
+
+
+		if (b != null)
+		{
 			_orient = b._orient;
-			if (b._x<_x)
-				_x=_x-1;
-			else if (b._y<_y)
-				_y=_y-1;
-			else if (b._x>_x)
-				_x=_x+1;
-			else if (b._y>_y)
-				_y=_y+1;
+			if (b._x < _x)
+				_x = _x - 1;
+			else if (b._y < _y)
+				_y = _y - 1;
+			else if (b._x > _x)
+				_x = _x + 1;
+			else if (b._y > _y)
+				_y = _y + 1;
 
 		}
-		else{
+		else
+		{
 			_orient = (int)(Math.random() * 4);
-			switch ( _orient ){
+			switch ( _orient )
+			{
 			case 0: // nord
 				_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
 				break;

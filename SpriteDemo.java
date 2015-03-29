@@ -107,7 +107,7 @@ public class SpriteDemo extends JPanel implements Serializable
 
 		_world = w;
 
-		tab = new boolean[x][y][6];
+		tab = new boolean[x][y][7];
 	}
 
 	public void update(boolean[][][] src)
@@ -116,7 +116,7 @@ public class SpriteDemo extends JPanel implements Serializable
 		{
 			for (int j = 0; j < tab[0].length; j += 1)
 			{
-				for (int h = 0; h != 6; h += 1)
+				for (int h = 0; h != 7; h += 1)
 				{
 					tab[i][j][h] = src[i][j][h];
 				}
@@ -137,10 +137,16 @@ public class SpriteDemo extends JPanel implements Serializable
 			{
 				if (tab[i][j][4] == true)
 					g2.drawImage(waterSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				if (tab[i][j][5] == true)
+					g2.drawImage(lavaSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 				if (tab[i][j][0] == true)
 					g2.drawImage(grassSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 				if (tab[i][j][1] == true)
 					g2.drawImage(treeSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				if (tab[i][j][2] == true)
+					g2.drawImage(rockSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				if (tab[i][j][3] == true)
+					g2.drawImage(magmaSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 			}
 		}
 		for ( int i = 0 ; i < _world.agents.size() ; i++ )

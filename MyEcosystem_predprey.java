@@ -14,15 +14,15 @@ public class MyEcosystem_predprey
 			System.exit(-1);
 		}*/
 
-		int dx = 25; //Integer.parseInt(args[4]);
-		int dy = 25;//Integer.parseInt(args[4]);
+		int dx = 20; //Integer.parseInt(args[4]);
+		int dy = 20;//Integer.parseInt(args[4]);
 
 		//int reprodWater = 6;
 		//int reprodEarth = 10;
 
 		int nbWater =3; //Integer.parseInt(args[0]);
 		int nbEarth =3; //Integer.parseInt(args[1]);
-		int nbFire =3; //Integer.parseInt(args[2]);
+		int nbFire =1; //Integer.parseInt(args[2]);
 		int nbWind = 3;//Integer.parseInt(args[3]);
 
 

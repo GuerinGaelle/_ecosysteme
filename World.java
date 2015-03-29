@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class World
 {
 	boolean explosion;
+	int lavaIt;
 
 	int _dx;
 	int _dy;
@@ -35,12 +36,14 @@ public class World
 		Buffer0 = new boolean[_dx][_dy][7];
 		Buffer1 = new boolean[_dx][_dy][7];
 		alt = new int[_dx][_dy];
+		
 		/*0: herbe*/
 		/*1: arbre*/
 		/*2: roche volcanique*/
 		/*3: magma*/
 		/*4: eau*/
 		/*5: lave*/
+		/*6: tsunami*/
 
 		activeIndex = 0;
 		agents = new ArrayList<Agent>();
@@ -191,11 +194,20 @@ public class World
 
 				if (getCellState(i, j)[3] && getCellState(i, j)[4])
 				{
+					setCellState (3, false, i, j);
 					setCellState (4, false, i, j);
-					setCellState (5, false, i, j);
 					setCellState (2, true, i, j);
 				}
 
+				if (getCellState(i,j)[3]) {
+					setCellState(3,false,i,j);
+					setCellState(2,true,i,j);
+				}
+
+				if (getCellState(i,j)[5]) {
+					setCellState(5,false,i,j);
+					setCellState(3,true,i,j);
+				}
 			}
 		}
 	}
@@ -337,63 +349,43 @@ public class World
 
 		while (y >= x)
 		{
-			setCellState(type, bool, (x_0 + x + _dx) % _dx, (y_0 + y + _dy) % _dy);
-			setCellState(type, bool, (x_0 + y + _dx) % _dx, (y_0 + x + _dy) % _dy);
-			setCellState(type, bool, (x_0 - x + _dx) % _dx, (y_0 + y + _dy) % _dy);
-			setCellState(type, bool, (x_0 - y + _dx) % _dy, (y_0 + x + _dy) % _dy);
-			setCellState(type, bool, (x_0 + x + _dx) % _dx, (y_0 - y + _dy) % _dy);
-			setCellState(type, bool, (x_0 + y + _dx) % _dx, (y_0 - x + _dy) % _dy);
-			setCellState(type, bool, (x_0 - x + _dx) % _dx, (y_0 - y + _dy) % _dy);
-			setCellState(type, bool, (x_0 - y + _dx) % _dx, (y_0 - x + _dy) % _dy);
+			setCellState(type, bool, (x_0 + x) % _dx, (y_0 + y) % _dy);
+			setCellState(type, bool, (x_0 + y) % _dx, (y_0 + x) % _dy);
+			setCellState(type, bool, (x_0 - x) % _dx, (y_0 + y) % _dy);
+			setCellState(type, bool, (x_0 - y) % _dx, (y_0 + x) % _dy);
+			setCellState(type, bool, (x_0 + x) % _dx, (y_0 - y) % _dy);
+			setCellState(type, bool, (x_0 + y) % _dx, (y_0 - x) % _dy);
+			setCellState(type, bool, (x_0 - x) % _dx, (y_0 - y) % _dy);
+			setCellState(type, bool, (x_0 - y) % _dx, (y_0 - x) % _dy);
 
 			if (d >= 2 * x)
 			{
 				d -= 2 * x + 1;
-				x += 1;
+				x = (x + 1) % _dx;
 			}
 			else if (d < 2 * (r - y))
 			{
 				d += 2 * y - 1;
-				y -= 1;
+				y = (y - 1) % _dy;
 			}
 			else
 			{
 				d += 2 * (y - x - 1);
-				y -= 1;
-				x += 1;
+				y = (y - 1) % _dy;
+				x = (x + 1) % _dx;
 			}
 		}
 	}
 
 	void lavaFlood (int x, int y, int r)
 	{
-		if (r > 2)
-		{
-			traceCircle (5, true, x, y, r);
-			traceCircle (5, false, x, y, r - 1);
-			traceCircle (3, true, x, y, r - 1);
-			traceCircle (3, false, x, y, r - 2);
-			traceCircle (2, true, x, y, r - 2);
-		}
-
-		if (r == 2)
-		{
-			traceCircle (5, true, x, y, r);
-			traceCircle (5, false, x, y, r - 1);
-			traceCircle (3, true, x, y, r - 1);
-		}
-
-		else
-		{
-			traceCircle (5, true, x, y, r);
-		}
-
+		traceCircle (5, true, x, y, r);
 		return;
 	}
 
 	void waterFlood (int x, int y, int r)
 	{
-		traceCircle (5, true, x, y, r);
+		traceCircle (4, true, x, y, r);
 		return;
 	}
 }
