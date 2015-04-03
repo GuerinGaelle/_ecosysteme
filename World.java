@@ -33,10 +33,10 @@ public class World
 		buffering = __buffering;
 		cloneBuffer = __cloneBuffer;
 
-		Buffer0 = new boolean[_dx][_dy][7];
-		Buffer1 = new boolean[_dx][_dy][7];
+		Buffer0 = new boolean[_dx][_dy][8];
+		Buffer1 = new boolean[_dx][_dy][8];
 		alt = new int[_dx][_dy];
-		
+
 		/*0: herbe*/
 		/*1: arbre*/
 		/*2: roche volcanique*/
@@ -44,6 +44,7 @@ public class World
 		/*4: eau*/
 		/*5: lave*/
 		/*6: tsunami*/
+		/*7: volcan*/
 
 		activeIndex = 0;
 		agents = new ArrayList<Agent>();
@@ -85,6 +86,7 @@ public class World
 
 			}
 		}
+		setCellState (7, true, 13, 13);
 	}
 
 	public void checkBounds( int __x , int __y )
@@ -199,15 +201,38 @@ public class World
 					setCellState (2, true, i, j);
 				}
 
-				if (getCellState(i,j)[3]) {
-					setCellState(3,false,i,j);
-					setCellState(2,true,i,j);
+				if (getCellState(i, j)[3])
+				{
+					setCellState(3, false, i, j);
+					setCellState(2, true, i, j);
 				}
 
-				if (getCellState(i,j)[5]) {
-					setCellState(5,false,i,j);
-					setCellState(3,true,i,j);
+				if (getCellState(i, j)[5])
+				{
+					setCellState(5, false, i, j);
+					setCellState(3, true, i, j);
 				}
+
+				if (getCellState(i, j)[0] && getCellState(i, j)[4])
+				{
+					setCellState(4, false, i, j);
+				}
+
+				if (getCellState(i, j)[2] && getCellState(i, j)[4])
+				{
+					setCellState(4, false, i, j);
+				}
+
+				if (getCellState(i, j)[7] && getCellState(i, j)[1])
+				{
+					setCellState(1, false, i, j);
+				}
+
+				if ((Math.random() < 0.01) && getCellState(i, j)[0] && !getCellState(i, j)[2] && !getCellState(i, j)[3] && !getCellState(i, j)[5] && !getCellState(i, j)[6])
+				{
+
+				}
+
 			}
 		}
 	}
@@ -383,9 +408,9 @@ public class World
 		return;
 	}
 
-	void waterFlood (int x, int y, int r)
+	void waterFlood (int x, int y, int r, boolean bool)
 	{
-		traceCircle (4, true, x, y, r);
+		traceCircle (6, bool, x, y, r);
 		return;
 	}
 }

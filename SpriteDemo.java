@@ -32,6 +32,7 @@ public class SpriteDemo extends JPanel implements Serializable
 	Image lavaSprite;
 	Image magmaSprite;
 	Image rockSprite;
+	Image volcanoSprite;
 
 	public SpriteDemo(int x, int y, World w)
 	{
@@ -89,6 +90,7 @@ public class SpriteDemo extends JPanel implements Serializable
 			System.out.println("Tree : sprite not found");
 			System.exit(-1);
 		}
+
 		try
 		{
 			waterSprite = ImageIO.read(new File("water.png"));
@@ -96,6 +98,16 @@ public class SpriteDemo extends JPanel implements Serializable
 		catch (Exception e)
 		{
 			System.out.println("Water : sprite not found");
+			System.exit(-1);
+		}
+		
+		try
+		{
+			volcanoSprite = ImageIO.read(new File("volcano.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("volcano : sprite not found");
 			System.exit(-1);
 		}
 
@@ -107,7 +119,7 @@ public class SpriteDemo extends JPanel implements Serializable
 
 		_world = w;
 
-		tab = new boolean[x][y][7];
+		tab = new boolean[x][y][8];
 	}
 
 	public void update(boolean[][][] src)
@@ -116,7 +128,7 @@ public class SpriteDemo extends JPanel implements Serializable
 		{
 			for (int j = 0; j < tab[0].length; j += 1)
 			{
-				for (int h = 0; h != 7; h += 1)
+				for (int h = 0; h != 8; h += 1)
 				{
 					tab[i][j][h] = src[i][j][h];
 				}
@@ -147,6 +159,10 @@ public class SpriteDemo extends JPanel implements Serializable
 					g2.drawImage(rockSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 				if (tab[i][j][3] == true)
 					g2.drawImage(magmaSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				if (tab[i][j][7] == true)
+					g2.drawImage(volcanoSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				if (tab[i][j][6] == true)
+					g2.drawImage(tsunamiSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 			}
 		}
 		for ( int i = 0 ; i < _world.agents.size() ; i++ )

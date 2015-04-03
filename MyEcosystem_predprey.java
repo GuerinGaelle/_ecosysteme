@@ -22,7 +22,7 @@ public class MyEcosystem_predprey
 
 		int nbWater =3; //Integer.parseInt(args[0]);
 		int nbEarth =3; //Integer.parseInt(args[1]);
-		int nbFire =1; //Integer.parseInt(args[2]);
+		int nbFire =3; //Integer.parseInt(args[2]);
 		int nbWind = 3;//Integer.parseInt(args[3]);
 
 
@@ -48,7 +48,6 @@ public class MyEcosystem_predprey
 			world.add(3);
 
 		world.Status();
-		world.explosion = true;
 		// mise a jour de l'etat du monde
 		while ( it != nombreDePasMaximum )
 		{
