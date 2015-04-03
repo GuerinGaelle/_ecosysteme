@@ -30,7 +30,7 @@ public class MyEcosystem_predprey
 		int displayWidth = dx;  // 200
 		int displayHeight = dy; // 200
 
-		int delai = 300;//100; // -- delay before refreshing display -- program is hold during delay, even if no screen update was requested. USE WITH CARE.
+		int delai = 100;//100; // -- delay before refreshing display -- program is hold during delay, even if no screen update was requested. USE WITH CARE.
 		int nombreDePasMaximum = Integer.MAX_VALUE;
 		int it = 0;
 

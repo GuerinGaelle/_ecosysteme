@@ -32,13 +32,13 @@ public class FireAgent extends Agent
 
 	public void step(int place)
 	{
-		if ((PV <= 0) || (age == 100))
+		if (PV <= 0) //|| (age == 100))
 		{
 			PV = 0;
 			_alive = false;
 		}
 
-		if (_world.getCellState(_x, _y)[7])
+		if ((_world.getCellState(_x, _y)[7])&&(_alive))
 		{
 			_world.explosion = true;
 		}
@@ -54,31 +54,22 @@ public class FireAgent extends Agent
 			VolcanoIt = 1;
 		}
 
+		if (_alive)
+		{
+			age++;
+			attaque_alentour(place);
+			repere_environement();
+			deplacement();
+		}
 		else
 		{
-			if (_alive)
+			try
 			{
-				/*if (reproduction == 20)
-				    reproduction = 0;
-				else if (reproduction >= 1)
-				    reproduction++;*/
-				//PV = PV - 1;
-				age++;
-				attaque_alentour(place);
-				repere_environement();
-				deplacement();
+				img = ImageIO.read(new File("deathfire.png"));
 			}
-			else
-			{
-				try
-				{
-					img = ImageIO.read(new File("deathfire.png"));
-				}
-				catch (Exception e)
-				{
-					System.out.println("deathfire : sprite not found");
-					System.exit(-1);
-				}
+			catch (Exception e)
+				{					System.out.println("deathfire : sprite not found");
+				System.exit(-1);
 			}
 		}
 	}
@@ -99,6 +90,7 @@ public class FireAgent extends Agent
 	{
 		if (!_alive)
 			return;
+		
 		int j = 0;
 		for (int i = 0; i != _world.agents.size(); i += 1)
 		{
@@ -136,7 +128,7 @@ public class FireAgent extends Agent
 	void deplacement ()
 	{
 		int tour = 0;
-		if (!_alive)
+		if ((!_alive)||(_world.explosion))
 			return;
 		_orient = (int)(Math.random() * 4);
 		while (tour < 2)

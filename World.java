@@ -5,6 +5,7 @@ public class World
 {
 	boolean explosion;
 	int lavaIt;
+	boolean tsunami;
 
 	int _dx;
 	int _dy;
@@ -21,6 +22,7 @@ public class World
 
 	ArrayList<Agent> agents;
 	SpriteDemo image;
+
 	public World ( int __dx , int __dy, boolean __buffering, boolean __cloneBuffer )
 	{
 		_dx = __dx;
@@ -29,6 +31,7 @@ public class World
 		image = new SpriteDemo(_dx, _dy, this);
 
 		explosion = false;
+		tsunami = false;
 
 		buffering = __buffering;
 		cloneBuffer = __cloneBuffer;
@@ -62,9 +65,11 @@ public class World
 		}
 
 		int radius = _dx / 3;
+		int x_r = /*(int)(Math.random() * _dx)*/_dx/2;
+		int y_r = /*(int)(Math.random() * _dy)*/_dy/2;
 		while (radius >= 0)
 		{
-			traceCircle (0, true, _dx / 2, _dy / 2, radius);
+			traceCircle (0, true, x_r, y_r, radius);
 			radius -= 1;
 		}
 
@@ -78,6 +83,7 @@ public class World
 				if (Buffer0[i][j][0])
 				{
 					setCellState (1, (Math.random() < 0.1 ? true : false), i, j);
+					setCellState (7, (Math.random() < 0.05 ? true : false), i, j);
 					Buffer0[i][j][4] = false;
 					Buffer1[i][j][4] = false;
 
@@ -86,7 +92,6 @@ public class World
 
 			}
 		}
-		setCellState (7, true, 13, 13);
 	}
 
 	public void checkBounds( int __x , int __y )
@@ -144,7 +149,6 @@ public class World
 	}
 
 
-
 	/**
 	 * Update the world state and return an array for the current world state (may be used for display)
 	 * @return
@@ -188,7 +192,10 @@ public class World
 					setCellState (5, false, i, j);
 					setCellState (2, true, i, j);
 				}
-
+				if (getCellState(i, j)[4] && getCellState(i, j)[6])
+				{
+					setCellState (6, false, i, j);
+				}
 				if (getCellState(i, j)[1] && getCellState(i, j)[5])
 				{
 					setCellState (1, false, i, j);

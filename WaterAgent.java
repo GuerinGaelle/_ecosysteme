@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class WaterAgent extends Agent
 {
 
-
+	int tsunamiIt=1;
 
 	public WaterAgent(int __x, int __y, World __w)
 	{
@@ -30,18 +30,13 @@ public class WaterAgent extends Agent
 
 	public void step(int place)
 	{
-		if ((PV <= 0) || (age == 100))
+		if (PV <= 0) //|| (age == 100))
 		{
 			PV = 0;
 			_alive = false;
 		}
 		if (_alive)
 		{
-			/*PV = PV - 1;
-			if (reproduction == 20)
-			    reproduction = 0;
-			else if (reproduction >= 1)
-			    reproduction++;*/
 			age++;
 			attaque_alentour(place);
 			repere_environement();
@@ -70,6 +65,20 @@ public class WaterAgent extends Agent
 			_alive = false;
 			return;
 		}
+
+		if ((_world.getCellState(_x, _y)[4])&&_world.explosion)
+		{
+			_world.tsunami= true;
+			_world.waterFlood(_x, _y, tsunamiIt, _world.explosion);
+			tsunamiIt++;
+			System.out.println(tsunamiIt);
+		}
+		if ( !_world.explosion && (tsunamiIt!=1) ) {
+			_world.tsunami= false;
+			_world.waterFlood(_x, _y, tsunamiIt, _world.explosion);
+			tsunamiIt--;
+			System.out.println(tsunamiIt);
+		}
 	}
 
 	void attaque_alentour (int place)
@@ -82,8 +91,6 @@ public class WaterAgent extends Agent
 			Agent a = _world.agents.get(i);
 			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (a._alive = true))
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			/*if((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (a._alive=true))
-			    if((float)Math.random()<=0.75)PV=PV-30;*/
 			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (a._alive = true) )
 			{
 				PV = PV - 20;
@@ -113,7 +120,7 @@ public class WaterAgent extends Agent
 
 	void deplacement ()
 	{
-		if (!_alive)
+		if ((!_alive)||((_world.getCellState(_x, _y)[4])&&_world.explosion)||(! _world.explosion && (tsunamiIt!=1)))
 			return;
 		_orient = (int)(Math.random() * 4);
 
