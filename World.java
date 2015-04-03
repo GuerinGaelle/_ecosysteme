@@ -129,7 +129,7 @@ public class World
 
 	public void setCellState (int type, boolean bool, int __x, int __y)
 	{
-		checkBounds (__x, __y);
+		//checkBounds (__x, __y);
 
 		if ( buffering == false )
 		{
@@ -192,10 +192,7 @@ public class World
 					setCellState (5, false, i, j);
 					setCellState (2, true, i, j);
 				}
-				if (getCellState(i, j)[4] && getCellState(i, j)[6])
-				{
-					setCellState (6, false, i, j);
-				}
+				
 				if (getCellState(i, j)[1] && getCellState(i, j)[5])
 				{
 					setCellState (1, false, i, j);
@@ -381,6 +378,8 @@ public class World
 
 		while (y >= x)
 		{
+			x = x % _dx;
+			y = y % _dy;
 			setCellState(type, bool, (x_0 + x) % _dx, (y_0 + y) % _dy);
 			setCellState(type, bool, (x_0 + y) % _dx, (y_0 + x) % _dy);
 			setCellState(type, bool, (x_0 - x) % _dx, (y_0 + y) % _dy);
