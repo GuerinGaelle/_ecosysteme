@@ -71,13 +71,11 @@ public class WaterAgent extends Agent
 			_world.tsunami= true;
 			_world.waterFlood(_x, _y, tsunamiIt, _world.explosion);
 			tsunamiIt++;
-			System.out.println(tsunamiIt);
 		}
-		if ( !_world.explosion && (tsunamiIt!=1) ) {
+		if ( !_world.explosion && (tsunamiIt!=0) ) {
 			_world.tsunami= false;
 			_world.waterFlood(_x, _y, tsunamiIt, _world.explosion);
 			tsunamiIt--;
-			System.out.println(tsunamiIt);
 		}
 	}
 
