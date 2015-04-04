@@ -12,10 +12,13 @@ import javax.swing.JPanel;
 public class EarthAgent extends Agent
 {
 	boolean enterre;
+	static int nbE=0;
+	
 	public EarthAgent(int __x, int __y, World __w)
 	{
 		super(__x, __y, __w);
 		enterre = false;
+		nbE++;
 		try
 		{
 			img = ImageIO.read(new File("EarthAgent.png"));
@@ -33,6 +36,7 @@ public class EarthAgent extends Agent
 		{
 			PV = 0;
 			_alive = false;
+			nbE--;
 		}
 		if (enterre && _alive)
 		{
@@ -71,6 +75,7 @@ public class EarthAgent extends Agent
 		{
 			PV = 0;
 			_alive = false;
+			nbE--;
 			return;
 		}
 		if (_world.explosion)
@@ -154,9 +159,10 @@ public class EarthAgent extends Agent
 				if ((float)Math.random() <= 0.50)
 					PV = PV - 30;
 			// si un agent de terre se trouve au meme endroit que lui, que
-			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (place != i) && (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20))
+			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (place != i) 
+					&& (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20)&&
+					(a.age < 40) && (a.age >= 10) && (a.PV > 20)&&(nbE<6))
 			{
-				//reproduction = 1;
 				boolean test = false;
 				while ((j < _world.agents.size()) && (test == false))
 				{

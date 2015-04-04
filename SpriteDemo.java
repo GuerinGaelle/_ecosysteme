@@ -119,7 +119,7 @@ public class SpriteDemo extends JPanel implements Serializable
 
 		_world = w;
 
-		tab = new boolean[x][y][8];
+		tab = new boolean[x][y][10];
 	}
 
 	public void update(boolean[][][] src)

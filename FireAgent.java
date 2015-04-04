@@ -14,11 +14,14 @@ public class FireAgent extends Agent
 {
 	int VolcanoIt = 1;
 	int VolcanoRadius = 5;
+	static int nbF=0;
 
 
 	public FireAgent(int __x, int __y, World __w)
 	{
 		super(__x, __y, __w);
+		nbF++;
+		
 		try
 		{
 			img = ImageIO.read(new File("FireAgent.png"));
@@ -36,6 +39,7 @@ public class FireAgent extends Agent
 		{
 			PV = 0;
 			_alive = false;
+			nbF--;
 		}
 
 		if ((_world.getCellState(_x, _y)[7])&&(_alive))
@@ -81,6 +85,7 @@ public class FireAgent extends Agent
 		if (_world.getCellState(_x, _y)[4])
 		{
 			_alive = false;
+			nbF--;
 			return;
 		}
 
@@ -104,7 +109,9 @@ public class FireAgent extends Agent
 				if ((float)Math.random() <= 0.75)PV = PV - 30;
 			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (a._alive = true))
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (place != i) && (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20))
+			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (place != i) &&
+					(a.age < 40) && (a.age >= 10) && (a.PV > 20)
+					&& (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20)&&(nbF<6))
 			{
 				//reproduction = 1;
 				boolean test = false;

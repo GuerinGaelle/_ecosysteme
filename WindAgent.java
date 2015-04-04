@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public class WindAgent extends Agent
 {
 
-	int nbWind = 0;
+	static int nbWind = 0;
 
 	public WindAgent(int __x, int __y, World __w)
 	{
@@ -36,18 +36,14 @@ public class WindAgent extends Agent
 		{
 			PV = 0;
 			_alive = false;
+			nbWind--;
 		}
 
 		if (_alive)
 		{
-			/*PV = PV - 1;
-			if (reproduction == 20)
-			    reproduction = 0;
-			else if (reproduction >= 1)
-			    reproduction++;*/
 			age++;
 			attaque_alentour(place);
-			repere_environement();
+			//repere_environement();
 			deplacementChasse();
 		}
 		else
@@ -80,8 +76,6 @@ public class WindAgent extends Agent
 		for (int i = 0; i != _world.agents.size(); i += 1)
 		{
 			Agent a = _world.agents.get(i);
-			/*if((a._x == _x) && (a._y == _y) && (a instanceof WaterAgent) && (a._alive=true)) {
-			    if((float)Math.random()<=0.50)PV=PV-10;*/
 			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (a._alive = true))
 			{
 				PV = PV - 20;
@@ -89,7 +83,9 @@ public class WindAgent extends Agent
 			}
 			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (a._alive = true) )
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (place != i) && (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20))
+			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (place != i) 
+					&& (a._alive = true) && (age < 40) && (age >= 10) &&(a.age < 40)
+					&& (a.age >= 10) && (a.PV > 20)&&(PV > 20)&&(nbWind<6))
 			{
 				//reproduction = 1;
 				boolean test = false;

@@ -6,7 +6,7 @@ public class World
 	boolean explosion;
 	int lavaIt;
 	boolean tsunami;
-
+	boolean volcan;
 	int _dx;
 	int _dy;
 
@@ -30,14 +30,15 @@ public class World
 
 		image = new SpriteDemo(_dx, _dy, this);
 
+		volcan = false;
 		explosion = false;
 		tsunami = false;
 
 		buffering = __buffering;
 		cloneBuffer = __cloneBuffer;
 
-		Buffer0 = new boolean[_dx][_dy][8];
-		Buffer1 = new boolean[_dx][_dy][8];
+		Buffer0 = new boolean[_dx][_dy][10];
+		Buffer1 = new boolean[_dx][_dy][10];
 		alt = new int[_dx][_dy];
 
 		/*0: herbe*/
@@ -48,6 +49,8 @@ public class World
 		/*5: lave*/
 		/*6: tsunami*/
 		/*7: volcan*/
+		/*8: pousse, a implementer*/
+		/*9: fruit, a implementer*/
 
 		activeIndex = 0;
 		agents = new ArrayList<Agent>();
@@ -65,8 +68,8 @@ public class World
 		}
 
 		int radius = _dx / 3;
-		int x_r = /*(int)(Math.random() * _dx)*/_dx/2;
-		int y_r = /*(int)(Math.random() * _dy)*/_dy/2;
+		int x_r = /*(int)(Math.random() * _dx)*/_dx / 2;
+		int y_r = /*(int)(Math.random() * _dy)*/_dy / 2;
 		while (radius >= 0)
 		{
 			traceCircle (0, true, x_r, y_r, radius);
@@ -83,7 +86,12 @@ public class World
 				if (Buffer0[i][j][0])
 				{
 					setCellState (1, (Math.random() < 0.1 ? true : false), i, j);
-					setCellState (7, (Math.random() < 0.05 ? true : false), i, j);
+					System.out.println(volcan);
+					if (volcan == false)
+					{
+						setCellState (7, (Math.random() < 0.1 ? true : false), i, j);
+						volcan = Buffer0[i][j][7];
+					}
 					Buffer0[i][j][4] = false;
 					Buffer1[i][j][4] = false;
 
@@ -192,7 +200,7 @@ public class World
 					setCellState (5, false, i, j);
 					setCellState (2, true, i, j);
 				}
-				
+
 				if (getCellState(i, j)[1] && getCellState(i, j)[5])
 				{
 					setCellState (1, false, i, j);
@@ -380,30 +388,34 @@ public class World
 		{
 			x = x % _dx;
 			y = y % _dy;
-			setCellState(type, bool, (x_0 + x) % _dx, (y_0 + y) % _dy);
-			setCellState(type, bool, (x_0 + y) % _dx, (y_0 + x) % _dy);
-			setCellState(type, bool, (x_0 - x) % _dx, (y_0 + y) % _dy);
-			setCellState(type, bool, (x_0 - y) % _dx, (y_0 + x) % _dy);
-			setCellState(type, bool, (x_0 + x) % _dx, (y_0 - y) % _dy);
-			setCellState(type, bool, (x_0 + y) % _dx, (y_0 - x) % _dy);
-			setCellState(type, bool, (x_0 - x) % _dx, (y_0 - y) % _dy);
-			setCellState(type, bool, (x_0 - y) % _dx, (y_0 - x) % _dy);
+			setCellState(type, bool, (x_0 + x + _dx) % _dx, (y_0 + y + _dy) % _dy);
+			setCellState(type, bool, (x_0 + y + _dx) % _dx, (y_0 + x + _dy) % _dy);
+			setCellState(type, bool, (x_0 - x + _dx) % _dx, (y_0 + y + _dy) % _dy);
+			setCellState(type, bool, (x_0 - y + _dx) % _dx, (y_0 + x + _dy) % _dy);
+			setCellState(type, bool, (x_0 + x + _dx) % _dx, (y_0 - y + _dy) % _dy);
+			setCellState(type, bool, (x_0 + y + _dx) % _dx, (y_0 - x + _dy) % _dy);
+			setCellState(type, bool, (x_0 - x + _dx) % _dx, (y_0 - y + _dy) % _dy);
+			setCellState(type, bool, (x_0 - y + _dx) % _dx, (y_0 - x + _dy) % _dy);
 
 			if (d >= 2 * x)
 			{
 				d -= 2 * x + 1;
 				x = (x + 1) % _dx;
+				x = x % _dx;
 			}
 			else if (d < 2 * (r - y))
 			{
 				d += 2 * y - 1;
 				y = (y - 1) % _dy;
+				y = y % _dy;
 			}
 			else
 			{
 				d += 2 * (y - x - 1);
 				y = (y - 1) % _dy;
+				y = y % _dy;
 				x = (x + 1) % _dx;
+				x = x % _dx;
 			}
 		}
 	}
