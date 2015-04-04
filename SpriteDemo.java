@@ -33,6 +33,8 @@ public class SpriteDemo extends JPanel implements Serializable
 	Image magmaSprite;
 	Image rockSprite;
 	Image volcanoSprite;
+	Image treelingSprite;
+	Image fruitSprite;
 
 	public SpriteDemo(int x, int y, World w)
 	{
@@ -100,7 +102,27 @@ public class SpriteDemo extends JPanel implements Serializable
 			System.out.println("Water : sprite not found");
 			System.exit(-1);
 		}
-		
+
+		try
+		{
+			fruitSprite = ImageIO.read(new File("fruit.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("Fruit : sprite not found");
+			System.exit(-1);
+		}
+
+		try
+		{
+			treelingSprite = ImageIO.read(new File("treeling.png"));
+		}
+		catch (Exception e)
+		{
+			System.out.println("Treeling : sprite not found");
+			System.exit(-1);
+		}
+
 		try
 		{
 			volcanoSprite = ImageIO.read(new File("volcano.png"));
@@ -128,7 +150,7 @@ public class SpriteDemo extends JPanel implements Serializable
 		{
 			for (int j = 0; j < tab[0].length; j += 1)
 			{
-				for (int h = 0; h != 8; h += 1)
+				for (int h = 0; h != 10; h += 1)
 				{
 					tab[i][j][h] = src[i][j][h];
 				}
@@ -147,22 +169,46 @@ public class SpriteDemo extends JPanel implements Serializable
 		{
 			for (int j = 0; j != tab[0].length; j += 1)
 			{
-				if (tab[i][j][4] == true)
-					g2.drawImage(waterSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
-				if (tab[i][j][5] == true)
-					g2.drawImage(lavaSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
 				if (tab[i][j][0] == true)
+				{
 					g2.drawImage(grassSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
 				if (tab[i][j][1] == true)
+				{
 					g2.drawImage(treeSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
 				if (tab[i][j][2] == true)
+				{
 					g2.drawImage(rockSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
 				if (tab[i][j][3] == true)
+				{
 					g2.drawImage(magmaSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
-				if (tab[i][j][7] == true)
-					g2.drawImage(volcanoSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
+				if (tab[i][j][4] == true)
+				{
+					g2.drawImage(waterSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
+				if (tab[i][j][5] == true)
+				{
+					g2.drawImage(lavaSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
 				if (tab[i][j][6] == true)
+				{
 					g2.drawImage(tsunamiSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
+				if (tab[i][j][7] == true)
+				{
+					g2.drawImage(volcanoSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
+				if (tab[i][j][8] == true)
+				{
+					g2.drawImage(treelingSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
+				if (tab[i][j][9] == true)
+				{
+					g2.drawImage(fruitSprite, spriteLength * i, spriteLength * j, spriteLength, spriteLength, frame);
+				}
 			}
 		}
 		for ( int i = 0 ; i < _world.agents.size() ; i++ )

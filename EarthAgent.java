@@ -32,7 +32,7 @@ public class EarthAgent extends Agent
 
 	public void step(int place)
 	{
-		if ((PV <= 0) || (age == 100))
+		if ((PV <= 0) || (age == age_max))
 		{
 			PV = 0;
 			_alive = false;

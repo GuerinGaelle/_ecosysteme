@@ -20,6 +20,7 @@ public abstract class Agent{
 	int     _y;
 	int     _orient;
 	int		age;
+	int age_max;
 
 	public Agent( int __x, int __y, World __w)
 	{
@@ -30,6 +31,7 @@ public abstract class Agent{
 
 		
 		age=0;
+		age_max = 200;
 		PV = 100;
 		mode = 0;
 		_orient = 0;

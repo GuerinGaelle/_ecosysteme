@@ -70,12 +70,14 @@ public class World
 		int radius = _dx / 3;
 		int x_r = /*(int)(Math.random() * _dx)*/_dx / 2;
 		int y_r = /*(int)(Math.random() * _dy)*/_dy / 2;
+		int x_rand;
+		int y_rand;
 		while (radius >= 0)
 		{
 			traceCircle (0, true, x_r, y_r, radius);
 			radius -= 1;
 		}
-
+		/*Generation de l'eau, de la terre, des arbres et du volcan*/
 		for (int i = 0; i != _dx; i += 1)
 		{
 			for (int j = 0; j != _dy; j += 1)
@@ -86,7 +88,6 @@ public class World
 				if (Buffer0[i][j][0])
 				{
 					setCellState (1, (Math.random() < 0.1 ? true : false), i, j);
-					System.out.println(volcan);
 					if (volcan == false)
 					{
 						setCellState (7, (Math.random() < 0.1 ? true : false), i, j);
@@ -97,9 +98,23 @@ public class World
 
 				}
 				Buffer1[i][j][1] = Buffer0[i][j][1];
-
 			}
 		}
+
+		/*géneration de fruits a l'initialisation*/
+		for (int i = 0; i != _dx; i += 1)
+		{
+			for (int j = 0; j != _dy; j += 1)
+			{
+				if (Buffer0[i][j][1])
+				{
+					x_rand = (i + (Math.random() < 0.5? 1 : -1) + _dx) % _dx;
+					y_rand = (j + (Math.random() < 0.5? 1 : -1) + _dy) % _dy;
+					Buffer0[x_rand][y_rand][9] = true;
+				}
+			}
+		}
+		setCellState(9,true,13,13);
 	}
 
 	public void checkBounds( int __x , int __y )

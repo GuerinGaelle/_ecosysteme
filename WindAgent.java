@@ -32,7 +32,7 @@ public class WindAgent extends Agent
 
 	public void step (int place)
 	{
-		if ((PV <= 0) || (age == 100))
+		if ((PV <= 0) || (age == age_max))
 		{
 			PV = 0;
 			_alive = false;
@@ -43,7 +43,7 @@ public class WindAgent extends Agent
 		{
 			age++;
 			attaque_alentour(place);
-			//repere_environement();
+			repere_environement();
 			deplacementChasse();
 		}
 		else
@@ -64,7 +64,6 @@ public class WindAgent extends Agent
 	{
 		if (!_alive)
 			return;
-
 	}
 
 
@@ -87,7 +86,6 @@ public class WindAgent extends Agent
 					&& (a._alive = true) && (age < 40) && (age >= 10) &&(a.age < 40)
 					&& (a.age >= 10) && (a.PV > 20)&&(PV > 20)&&(nbWind<6))
 			{
-				//reproduction = 1;
 				boolean test = false;
 				while ((j < _world.agents.size()) && (test == false))
 				{

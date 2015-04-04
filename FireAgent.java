@@ -14,14 +14,14 @@ public class FireAgent extends Agent
 {
 	int VolcanoIt = 1;
 	int VolcanoRadius = 5;
-	static int nbF=0;
+	static int nbF = 0;
 
 
 	public FireAgent(int __x, int __y, World __w)
 	{
 		super(__x, __y, __w);
 		nbF++;
-		
+
 		try
 		{
 			img = ImageIO.read(new File("FireAgent.png"));
@@ -35,14 +35,14 @@ public class FireAgent extends Agent
 
 	public void step(int place)
 	{
-		if (PV <= 0) //|| (age == 100))
+		if ((PV <= 0) || (age == age_max))
 		{
 			PV = 0;
 			_alive = false;
 			nbF--;
 		}
 
-		if ((_world.getCellState(_x, _y)[7])&&(_alive))
+		if ((_world.getCellState(_x, _y)[7]) && (_alive))
 		{
 			_world.explosion = true;
 		}
@@ -53,7 +53,8 @@ public class FireAgent extends Agent
 			VolcanoIt++;
 		}
 
-		if (_world.explosion && (VolcanoIt == VolcanoRadius)) {
+		if (_world.explosion && (VolcanoIt == VolcanoRadius))
+		{
 			_world.explosion = false;
 			VolcanoIt = 1;
 		}
@@ -62,8 +63,8 @@ public class FireAgent extends Agent
 		{
 			age++;
 			attaque_alentour(place);
-			repere_environement();
 			deplacement();
+			repere_environement();
 		}
 		else
 		{
@@ -72,7 +73,8 @@ public class FireAgent extends Agent
 				img = ImageIO.read(new File("deathfire.png"));
 			}
 			catch (Exception e)
-				{					System.out.println("deathfire : sprite not found");
+			{
+				System.out.println("deathfire : sprite not found");
 				System.exit(-1);
 			}
 		}
@@ -81,21 +83,22 @@ public class FireAgent extends Agent
 	void repere_environement()
 	{
 		if (!_alive)
+		{
 			return;
+		}
 		if (_world.getCellState(_x, _y)[4])
 		{
 			_alive = false;
 			nbF--;
 			return;
 		}
-
 	}
 
 	void attaque_alentour (int place)
 	{
 		if (!_alive)
 			return;
-		
+
 		int j = 0;
 		for (int i = 0; i != _world.agents.size(); i += 1)
 		{
@@ -110,10 +113,9 @@ public class FireAgent extends Agent
 			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (a._alive = true))
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
 			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (place != i) &&
-					(a.age < 40) && (a.age >= 10) && (a.PV > 20)
-					&& (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20)&&(nbF<6))
+			        (a.age < 40) && (a.age >= 10) && (a.PV > 20)
+			        && (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20) && (nbF < 6))
 			{
-				//reproduction = 1;
 				boolean test = false;
 				while ((j < _world.agents.size()) && (test == false))
 				{
@@ -135,7 +137,7 @@ public class FireAgent extends Agent
 	void deplacement ()
 	{
 		int tour = 0;
-		if ((!_alive)||(_world.explosion))
+		if ((!_alive) || (_world.explosion))
 			return;
 		_orient = (int)(Math.random() * 4);
 		while (tour < 2)
@@ -144,14 +146,9 @@ public class FireAgent extends Agent
 			{
 			case 0: // nord
 
-				/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y - 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				    break;*/
-
 				if ((_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
 				        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
 				{
-					/*tour++;
-					_orient=(_orient+1);*/
 					break;
 				}
 
@@ -162,14 +159,10 @@ public class FireAgent extends Agent
 				}
 
 			case 1: // est
-				/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x + 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				    break;*/
 
 				if ((_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
 				        || (_world.getCellState(( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true))
 				{
-					/*tour++;
-					_orient=(_orient+1);*/
 					break;
 				}
 
@@ -180,14 +173,10 @@ public class FireAgent extends Agent
 				}
 
 			case 2: // sud
-				/*if (Math.abs(_world.alt[_x][_y] - _world.alt[_x][( _y + 1 + _world.getHeight() ) % _world.getHeight()]) >= 2)
-				    break;*/
 
 				if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
 				        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
 				{
-					/*tour++;
-					_orient=(_orient+1);*/
 					break;
 				}
 
@@ -198,14 +187,10 @@ public class FireAgent extends Agent
 				}
 
 			case 3: // ouest
-				/*if (Math.abs(_world.alt[_x][_y] - _world.alt[( _x - 1 + _world.getWidth() ) % _world.getWidth()][_y]) >= 2)
-				    break;*/
 
 				if ((_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
 				        || (_world.getCellState(( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true))
 				{
-					/*tour++;
-					_orient=(_orient+1);*/
 					break;
 				}
 
