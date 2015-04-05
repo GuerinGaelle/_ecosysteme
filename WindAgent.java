@@ -75,16 +75,16 @@ public class WindAgent extends Agent
 		for (int i = 0; i != _world.agents.size(); i += 1)
 		{
 			Agent a = _world.agents.get(i);
-			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (a._alive = true))
+			if ((a._x == _x) && (a._y == _y) &&  (a._alive == true)){
+			if  (a instanceof FireAgent)
 			{
 				PV = PV - 20;
 				if ((float)Math.random() <= 0.85)PV = PV - 50;
 			}
-			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (a._alive = true) )
+			if (a instanceof EarthAgent) 
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (place != i) 
-					&& (a._alive = true) && (age < 40) && (age >= 10) &&(a.age < 40)
-					&& (a.age >= 10) && (a.PV > 20)&&(PV > 20)&&(nbWind<6))
+			if ((a instanceof WindAgent) && (place != i) &&/* (age < 40) && (age >= 10) &&(a.age < 40)
+					&& (a.age >= 10) &&*/ (a.PV > 20)&&(PV > 20)&&(nbWind<6))
 			{
 				boolean test = false;
 				while ((j < _world.agents.size()) && (test == false))
@@ -100,6 +100,7 @@ public class WindAgent extends Agent
 				if ((!test) && (nbWind >= 5))
 					_world.add(3);
 			}
+		}
 		}
 
 	}

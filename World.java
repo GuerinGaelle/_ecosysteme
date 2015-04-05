@@ -312,20 +312,20 @@ public class World
 			break;
 
 		case 1:
-			x = (int)(Math.random () * (2 * rayon) + rayon);
-			y = (int)(Math.random () * (2 * rayon) + rayon);
+			x = (int)(Math.random () * (2 * rayon) + rayon)-2;
+			y = (int)(Math.random () * (2 * rayon) + rayon)-2;
 			agents.add(new EarthAgent(x, y, this));
 			break;
 
 		case 2:
-			x = (int)(Math.random () * (2 * rayon) + rayon);
-			y = (int)(Math.random () * (2 * rayon) + rayon);
+			x = (int)(Math.random () * (2 * rayon) + rayon)-2;
+			y = (int)(Math.random () * (2 * rayon) + rayon)-2;
 			agents.add(new FireAgent(x, y, this));
 			break;
 
 		case 3:
-			x = (int)(Math.random () * (2 * rayon) + rayon);
-			y = (int)(Math.random () * (2 * rayon) + rayon);
+			x = (int)(Math.random () * (2 * rayon) + rayon)-2;
+			y = (int)(Math.random () * (2 * rayon) + rayon)-2;
 			agents.add(new WindAgent(x, y, this));
 			break;
 

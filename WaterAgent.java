@@ -42,7 +42,8 @@ public class WaterAgent extends Agent
 			age++;
 			attaque_alentour(place);
 			repere_environement();
-			deplacement();
+				deplacement();
+
 		}
 		else
 		{
@@ -78,8 +79,8 @@ public class WaterAgent extends Agent
 		if ( !_world.explosion && (tsunamiIt != 1) )
 		{
 			_world.tsunami = false;
-			_world.waterFlood(_x, _y, tsunamiIt, _world.explosion);
 			tsunamiIt--;
+			_world.waterFlood(_x, _y, tsunamiIt, _world.explosion);
 		}
 	}
 
@@ -91,30 +92,32 @@ public class WaterAgent extends Agent
 		for (int i = 0; i != _world.agents.size(); i += 1)
 		{
 			Agent a = _world.agents.get(i);
-			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (a._alive = true))
-				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (a._alive = true) )
-			{
-				PV = PV - 20;
-				if ((float)Math.random() <= 0.85)PV = PV - 50;
-			}
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WaterAgent) && (place != i)
-			        && (a._alive = true) && (age < 40) && (age >= 10) &&
-			        (a.age < 40) && (a.age >= 10) && (a.PV > 20) && (PV > 20) && (nbW < 6))
-			{
-				boolean test = false;
-				while ((j < _world.agents.size()) && (test == false))
+			if ((a._x == _x) && (a._y == _y) && (a._alive == true)){
+				if (a instanceof FireAgent)
+					if ((float)Math.random() <= 0.15)PV = PV - 10;
+				 if (a instanceof EarthAgent)
 				{
-					Agent b = _world.agents.get(j);
-					if ((b instanceof WaterAgent) && !a._alive)
-					{
-						b = new WaterAgent(_x, _y, _world);
-						test = true;
-					}
-					j++;
+					PV = PV - 20;
+					if ((float)Math.random() <= 0.85)PV = PV - 50;
 				}
-				if (!test)
-					_world.add(0);
+				if ( (a instanceof WaterAgent) && (place != i)
+				      &&  (age < 40) && (age >= 10) && (a.age < 40) 
+				      && (a.age >= 10) && (a.PV > 20) && (PV > 20) && (nbW < 6))
+				{
+					boolean test = false;
+					while ((j < _world.agents.size()) && (test == false))
+					{
+						Agent b = _world.agents.get(j);
+						if ((b instanceof WaterAgent) && !a._alive)
+						{
+							b = new WaterAgent(_x, _y, _world);
+							test = true;
+						}
+						j++;
+					}
+					if (!test)
+						_world.add(0);
+				}
 			}
 		}
 
@@ -125,48 +128,52 @@ public class WaterAgent extends Agent
 		if ((!_alive) || ((_world.getCellState(_x, _y)[4]) && _world.explosion) || (! _world.explosion && (tsunamiIt != 1)))
 			return;
 		_orient = (int)(Math.random() * 4);
-
-		switch ( _orient )
-		{
-		case 0: // nord
-			if ((_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-			        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-			        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+			switch ( _orient )
+			{
+			case 0: // nord
+				if ((_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
+						||(_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[7] == true)
+				        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+				        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+					break;
+	
+				_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
 				break;
-
-			_y = ( _y - 1 + _world.getHeight() ) % _world.getHeight();
-			break;
-
-
-		case 1: // est
-			if ((_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
-			        || (_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[3] == true)
-			        || (_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[5] == true))
+	
+	
+			case 1: // est
+				if ((_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
+				        || (_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[3] == true)
+				        || (_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[7] == true)
+				        || (_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[5] == true))
+					break;
+	
+				_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
 				break;
-
-			_x = ( _x + 1 + _world.getWidth() ) % _world.getWidth();
-			break;
-
-
-		case 2: // sud
-			if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-			        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
-			        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+	
+	
+			case 2: // sud
+				if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
+				        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[3] == true)
+				        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[7] == true)
+				        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[5] == true))
+					break;
+	
+				_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
 				break;
-
-			_y = ( _y + 1 + _world.getHeight() ) % _world.getHeight();
-			break;
-
-
-		case 3: // ouest
-			if ((_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
-			        || (_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[3] == true)
-			        || (_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[5] == true))
+	
+	
+			case 3: // ouest
+				if ((_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
+				        || (_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[3] == true)
+				        || (_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[7] == true)
+				        || (_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[5] == true))
+					break;
+	
+				_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
 				break;
-
-			_x = ( _x - 1 + _world.getWidth() ) % _world.getWidth();
-			break;
-		}
+			}
 
 	}
+	
 }

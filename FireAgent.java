@@ -86,7 +86,7 @@ public class FireAgent extends Agent
 		{
 			return;
 		}
-		if (_world.getCellState(_x, _y)[4])
+		if (_world.getCellState(_x, _y)[4]||_world.getCellState(_x, _y)[6])
 		{
 			_alive = false;
 			nbF--;
@@ -103,18 +103,18 @@ public class FireAgent extends Agent
 		for (int i = 0; i != _world.agents.size(); i += 1)
 		{
 			Agent a = _world.agents.get(i);
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WaterAgent) && (a._alive = true) )
+			if ((a._x == _x) && (a._y == _y) &&(a._alive == true)){
+			if (a instanceof WaterAgent) 
 			{
 				PV = PV - 20;
 				if ((float)Math.random() <= 0.85)PV = PV - 50;
 			}
-			if ((a._x == _x) && (a._y == _y) && (a instanceof EarthAgent) && (a._alive = true))
+			if (a instanceof EarthAgent)
 				if ((float)Math.random() <= 0.75)PV = PV - 30;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof WindAgent) && (a._alive = true))
+			if  (a instanceof WindAgent) 
 				if ((float)Math.random() <= 0.15)PV = PV - 10;
-			if ((a._x == _x) && (a._y == _y) && (a instanceof FireAgent) && (place != i) &&
-			        (a.age < 40) && (a.age >= 10) && (a.PV > 20)
-			        && (a._alive = true) && (age < 40) && (age >= 10) && (PV > 20) && (nbF < 6))
+			if ((a instanceof FireAgent) && (place != i) /*&& (a.age < 40) && (a.age >= 10) && (a.PV > 20)
+			    && (age < 40) && (age >= 10)*/ && (PV > 20) && (nbF < 6))
 			{
 				boolean test = false;
 				while ((j < _world.agents.size()) && (test == false))
@@ -130,6 +130,7 @@ public class FireAgent extends Agent
 				if (!test)
 					_world.add(2);
 			}
+		}
 		}
 
 	}
@@ -147,7 +148,8 @@ public class FireAgent extends Agent
 			case 0: // nord
 
 				if ((_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
+				        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
+				        || (_world.getCellState(_x, ( _y - 1 + _world.getHeight() ) % _world.getHeight())[6] == true))
 				{
 					break;
 				}
@@ -161,7 +163,8 @@ public class FireAgent extends Agent
 			case 1: // est
 
 				if ((_world.getCellState( ( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
-				        || (_world.getCellState(( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true))
+				        || (_world.getCellState(( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true)
+				        || (_world.getCellState(( _x + 1 + _world.getHeight() ) % _world.getHeight(), _y)[6] == true))
 				{
 					break;
 				}
@@ -175,7 +178,8 @@ public class FireAgent extends Agent
 			case 2: // sud
 
 				if ((_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[1] == true)
-				        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true))
+				        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[4] == true)
+				        || (_world.getCellState(_x, ( _y + 1 + _world.getHeight() ) % _world.getHeight())[6] == true))
 				{
 					break;
 				}
@@ -189,7 +193,8 @@ public class FireAgent extends Agent
 			case 3: // ouest
 
 				if ((_world.getCellState( ( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[1] == true)
-				        || (_world.getCellState(( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true))
+				        || (_world.getCellState(( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[4] == true)
+				        || (_world.getCellState(( _x - 1 + _world.getHeight() ) % _world.getHeight(), _y)[6] == true))
 				{
 					break;
 				}

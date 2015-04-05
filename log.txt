@@ -1,0 +1,162 @@
+commit 5a3b3bf65ba0c4f1c690f68980f65bb2f6a2cdc2
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Sun Apr 5 13:51:15 2015 +0200
+
+    La version avec le sprite fruit et pousses
+
+commit 2dedc61fe5939a09f8125e9d4574cca6db134bef
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Sun Apr 5 00:07:48 2015 +0200
+
+    - ...j'ai ajouté dans Agent.java une variable age_max pour se faciliter.
+    - ...les fruits sont implémentés, mais pas encore utilisés, ils ont un
+    spawn intelligents (autour des arbres).
+    - ...le volcan spawn convenablement.
+    - ...
+    - ...voilà
+
+commit 1c6aca87bb0ea0e6f9044ad64b0c3c04fbd1cb24
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Sat Apr 4 20:58:03 2015 +0200
+
+    J'ai rajouté un Makefile, ce sera plus facile pour le prof quand
+    il voudra compiler.
+
+commit e7e54f82f084080b78e5fbe0911e33eea71c0187
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Sat Apr 4 20:48:32 2015 +0200
+
+    La version "fonctionnelle" avec les sprites des pousses d'arbres
+    et des fruits
+
+commit 76df7b0a5d7ad91dff1d3c89088e5b3140bcfdd1
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Fri Apr 3 22:35:10 2015 +0200
+
+    blabla
+
+commit f30ab1a28a6b189179ca1609c06e42e8899a3f82
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Fri Apr 3 22:25:17 2015 +0200
+
+    bla
+
+commit 0eec40583183ae3419be7e909ccb081ea0d25606
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Fri Apr 3 21:38:34 2015 +0200
+
+    P*tain, j'arrive pas a trouver le problème... on dirait que ca vient
+    de traceCircle...
+
+commit 7d8d66e457ea94499b452aba7868895f4834cff0
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Fri Apr 3 13:56:23 2015 +0200
+
+    Désolé, je n'ai pas pu intégrer ton sprite de volcan, du coup il y a
+    le mien (qui est assez nul à chier ^_^')
+    Il faudrait que tu corriges l'encodage de step pour le FireAgent:
+    il ne reste pas en place une fois sur le volcan
+
+commit 90c54e6814261a1f4639bebba0b6ea8b55c63e3c
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Sun Mar 29 12:06:37 2015 +0200
+
+    lavaFlood fonctionne correctement! \(^o^)/
+    je suis en train de voir quelle solution on peut adopter pour
+    tout ce qui est point de vue:
+    soit un scrolling
+    soit un systeme de zoom - dezoom
+
+commit 4a785dec28534f4f5c89bc1b683f37e0c2de7ea8
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Thu Mar 26 12:17:16 2015 +0100
+
+    Ajout des sprites suivants:
+    - lava
+    - magma
+    - rock
+    -tides (tsunami)
+
+commit f7ee029cf08cab65cc153c59c5c95fb66bc2b552
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Thu Mar 26 11:58:29 2015 +0100
+
+    Rajout du tore dans traceCircle
+
+commit 917ac2c42b28ce7952e93964d12f3e25fe302cee
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Thu Mar 26 11:19:42 2015 +0100
+
+    lavaFlood et waterFlood implémentés
+
+commit be9c99fe2989c5256070d4932942e198f62bdf77
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Mon Mar 23 17:34:42 2015 +0100
+
+    les sprites morts sont integrees
+
+commit 6ac8cf673a2e74c5aee5805e1d3b6d4ea7fd5f4f
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Mon Mar 23 16:52:29 2015 +0100
+
+    Tadaaaaa!
+
+commit 08a8b9df152bab3f07bc18ec6a272e530086d806
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Thu Mar 19 11:55:34 2015 +0100
+
+    test
+
+commit c997b35c60908477e67072b5086d44deed818e5c
+Author: GuerinGaelle <gaelle.guerin@etu.upmc.fr>
+Date:   Thu Mar 19 11:00:48 2015 +0100
+
+    version avec ile et déplacement agent
+    
+    le déplacement considère l'ensemble des environnements possible, mais ne
+    marche plus
+
+commit 5505c91cfe990cb6d4805982b43cdffb1c5068a8
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Mon Mar 16 11:48:34 2015 +0100
+
+    - Passage d'arguments
+    - Affichage de status
+    - La reproduction part vraiment en couille
+
+commit d0c986082e45a1147ad98fc871718203c4b6d914
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Mon Mar 16 10:30:56 2015 +0100
+
+    J'ai sécurisé les fonctions avec des conditions de la forme
+    `if(!_alive) return;`. Cependant, il y a toujours, un probleme
+    concernant la reproduction, et je conseille vivement l'integration
+    d'âge au sein de nos agents... Ca, plus un spawn aléatoire d'un nouvel
+    agent autour des agents reproducteurs, et non pas au dessus
+    PS: dsl pour vendredi, j'étais vraiment au plus mal... ^^'
+
+commit 8dd59e848d3666a5c6aafa78d88f30932343e8e3
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Fri Mar 13 10:55:22 2015 +0100
+
+    Il y a un probleme de deplacement au niveau des agents,
+    une fois mort...
+    A corriger, je job encore dessus
+
+commit d8f5327b24ffd7c2428a761ac521f5da4e49ea4f
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Mon Mar 9 17:12:06 2015 +0100
+
+    FUCK YEAAAAAAAAAAH!!!
+
+commit 2cfd99ae24c8eed9876061f8f01bf35e47854c1d
+Author: KevinMambu <kev.mambu@gmail.com>
+Date:   Mon Mar 9 16:34:04 2015 +0100
+
+    new branch
+
+commit bcca90f4e468f07e4eb5aaeeb91d481afb76fe58
+Author: GuerinGaelle <gaelle.guerin@etu.upmc.fr>
+Date:   Mon Mar 9 14:56:53 2015 +0100
+
+    :neckbeard: Added .gitattributes & .gitignore files

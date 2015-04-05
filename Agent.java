@@ -31,7 +31,7 @@ public abstract class Agent{
 
 		
 		age=0;
-		age_max = 200;
+		age_max = 100000;
 		PV = 100;
 		mode = 0;
 		_orient = 0;
